@@ -9,9 +9,7 @@ public class Comment {
     
     [Key]
     public Guid Id { get; init; } = Guid.NewGuid();
-
-    [Required]
-    [MaxLength(500)]
+    
     public required string Content { get; init; }
 
     public required Guid PostId { get; init; }

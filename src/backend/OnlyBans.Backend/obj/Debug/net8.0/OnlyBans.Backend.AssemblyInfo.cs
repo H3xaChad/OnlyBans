@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OnlyBans.Backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+44a80d039689b16aef6ed5aaf0d6f7ce551ece2a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3a748f1d07e8355c4a24706f7a8c6b1465efdc4")]
 [assembly: System.Reflection.AssemblyProductAttribute("OnlyBans.Backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OnlyBans.Backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
