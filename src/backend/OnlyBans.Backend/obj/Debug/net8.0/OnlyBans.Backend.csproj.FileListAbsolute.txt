@@ -407,3 +407,4 @@ C:\Users\OQD1FE\Programming\OnlyBans\src\backend\OnlyBans.Backend\obj\Debug\net8
 C:\Users\OQD1FE\Programming\OnlyBans\src\backend\OnlyBans.Backend\obj\Debug\net8.0\OnlyBans.Backend.pdb
 C:\Users\OQD1FE\Programming\OnlyBans\src\backend\OnlyBans.Backend\obj\Debug\net8.0\OnlyBans.Backend.genruntimeconfig.cache
 C:\Users\OQD1FE\Programming\OnlyBans\src\backend\OnlyBans.Backend\obj\Debug\net8.0\ref\OnlyBans.Backend.dll
+C:\Users\OQD1FE\Programming\OnlyBans\src\backend\OnlyBans.Backend\obj\Debug\net8.0\OnlyBans.Backend.sourcelink.json
