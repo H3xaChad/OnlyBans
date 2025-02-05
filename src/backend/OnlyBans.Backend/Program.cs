@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OnlyBans.Backend.Data;
 using OnlyBans.Backend.Models.Users;
@@ -19,7 +20,14 @@ builder.Services.AddIdentity<User, IdentityRole<Guid>>(options => {
     options.Password.RequiredLength = 8;
 })
 .AddEntityFrameworkStores<AppDbContext>()
-.AddDefaultTokenProviders();
+.AddDefaultTokenProviders()
+.AddRoles<UserRole>()
+.AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<User, UserRole>>()
+.AddDefaultTokenProviders()
+.AddSignInManager();
+
+builder.Services.AddScoped<IRoleStore<UserRole>, RoleStore<UserRole, AppDbContext, Guid>>();
+builder.Services.AddScoped<IUserStore<User>, UserStore<User, UserRole, AppDbContext, Guid>>();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 

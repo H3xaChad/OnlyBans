@@ -9,9 +9,8 @@ using OnlyBans.Backend.Models.Users;
 namespace OnlyBans.Backend.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options)
-    : IdentityDbContext<User, IdentityRole<Guid>, Guid>(options) {
+    : IdentityDbContext<User, UserRole, Guid>(options) {
     
-    public DbSet<User> Users { get; init; }
     public DbSet<Post> Posts { get; init; }
     public DbSet<Comment> Comments { get; init; }
 
@@ -24,5 +23,14 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 
         modelBuilder.Entity<UserPostLike>()
             .HasKey(l => new { l.UserId, l.PostId });
+        
+        modelBuilder.Entity<IdentityUserLogin<Guid>>()
+            .HasKey(l => new { l.LoginProvider, l.ProviderKey });
+        
+        modelBuilder.Entity<IdentityUserRole<Guid>>()
+            .HasKey(r => new { r.UserId, r.RoleId });
+        
+        modelBuilder.Entity<IdentityUserToken<Guid>>()
+            .HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
     }
 }

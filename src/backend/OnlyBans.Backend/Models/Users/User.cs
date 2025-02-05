@@ -8,19 +8,7 @@ using OnlyBans.Backend.Models.Posts;
 namespace OnlyBans.Backend.Models.Users;
 
 public class User : IdentityUser<Guid> {
-
-    [Key]
-    public Guid Id { get; init; } = Guid.NewGuid();
-    
-    public required string Name { get; init; }
-    
-    public required string Email { get; init; }
-    
-    public required string PhoneNumber { get; init; }
-    
     public required DateOnly BirthDate { get; init; }
-    
-    public required string PasswordHash { get; init; }
     
     // public required bool isBanned { get; init; }
 

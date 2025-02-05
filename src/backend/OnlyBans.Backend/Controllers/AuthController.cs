@@ -9,17 +9,28 @@ using OnlyBans.Backend.Security;
 namespace OnlyBans.Backend.Controllers;
 
 [ApiController]
-[Route("api/auth")]
+[Route("api/v1/auth")]
 public class AuthController(AppDbContext context, UserManager<User> userManager, SignInManager<User> signInManager) : ControllerBase {
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto) {
-        var user = await context.Users.SingleOrDefaultAsync(u => loginDto.Email == u.Email);
-        if (user == null || !PasswordHasher.VerifyPassword(loginDto.Password, user.PasswordHash))
+        var user = await userManager.FindByEmailAsync(loginDto.Email);
+        if (user == null)
+            return Unauthorized(new { message = "Invalid credentials" });
+
+        var passwordValid = await userManager.CheckPasswordAsync(user, loginDto.Password);
+        if (!passwordValid)
             return Unauthorized(new { message = "Invalid credentials" });
 
         return Ok(new { message = "Login successful" });
     }
-    
-    
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] UserCreateDto userDto) {
+        var result = await userManager.CreateAsync(userDto.ToUser(), userDto.Password);
+        if (!result.Succeeded)
+            return BadRequest(result.Errors);
+
+        return Ok(new { message = "User successful" });
+    }
 }

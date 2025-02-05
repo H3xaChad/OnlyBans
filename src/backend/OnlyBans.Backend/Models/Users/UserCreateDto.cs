@@ -30,12 +30,10 @@ public class UserCreateDto {
 
     public User ToUser() {
         return new User {
-            Name = Name,
+            UserName = Name,
             Email = Email,
             PhoneNumber = PhoneNumber,
-            BirthDate = BirthDate,
-            // isBanned = false,
-            PasswordHash = PasswordHasher.HashPassword(Password)
+            BirthDate = BirthDate
         };
     }
 }

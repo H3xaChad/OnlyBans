@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using OnlyBans.Backend.Data;
 using OnlyBans.Backend.Models;
@@ -31,7 +32,7 @@ public class UserController(AppDbContext context) : ControllerBase {
     }
     
     [HttpGet("{id:guid}/avatar")]
-    public async Task<ActionResult<UserGetDto>> GetUserImage(Guid id) {
+    public async Task<ActionResult<UserGetDto>> GetUserAvatar(Guid id) {
         var user = await context.Users.FindAsync(id);
         if (user == null)
             return NotFound();
@@ -40,9 +41,9 @@ public class UserController(AppDbContext context) : ControllerBase {
         if (!System.IO.File.Exists(imagePath))
             return NotFound();
         
-        var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+        var provider = new FileExtensionContentTypeProvider();
         if (!provider.TryGetContentType(imagePath, out var contentType)) {
-            contentType = "application/octet-stream"; // Fallback MIME type
+            contentType = "application/octet-stream";
         }
             
         var image = System.IO.File.OpenRead(imagePath);
@@ -59,7 +60,7 @@ public class UserController(AppDbContext context) : ControllerBase {
             return Conflict(new { message = "Email is already in use." });
 
         var newUser = new User {
-            Name = userDto.Name,
+            UserName = userDto.Name,
             Email = userDto.Email,
             PhoneNumber = userDto.PhoneNumber,
             BirthDate = userDto.BirthDate,
@@ -71,6 +72,4 @@ public class UserController(AppDbContext context) : ControllerBase {
         await context.SaveChangesAsync();
         return CreatedAtAction(nameof(GetUser), new { id = newUser.Id }, newUser);
     }
-    
-    
 }
