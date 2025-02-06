@@ -13,10 +13,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     : IdentityDbContext<User, UserRole, Guid>(options) {
     
     public DbSet<Post> Posts { get; init; }
-    
-    public DbSet<Rule> Rules { get; init; }
     public DbSet<Comment> Comments { get; init; }
     public DbSet<UserPostLike> UserPostLikes { get; init; }
+    
+    public DbSet<UserFollow> UserFollows { get; init; }
+    public DbSet<Rule> Rules { get; init; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         modelBuilder.HasPostgresExtension("uuid-ossp");

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlyBans.Backend.Models;
 using OnlyBans.Backend.Models.Users;
@@ -8,7 +9,16 @@ namespace OnlyBans.Backend.Controllers;
 [ApiController]
 [Route("api/v1/[controller]")]
 public class AuthController(UserManager<User> userManager, SignInManager<User> signInManager) : ControllerBase {
+    
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] UserCreateDto userDto) {
+        var result = await userManager.CreateAsync(userDto.ToUser(), userDto.Password);
+        if (!result.Succeeded)
+            return BadRequest(result.Errors);
 
+        return Ok(new { message = "User creation successful" });
+    }
+    
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto) {
         var user = await userManager.FindByEmailAsync(loginDto.Email);
@@ -24,13 +34,11 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
             message = "Login successful"
         });
     }
-
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] UserCreateDto userDto) {
-        var result = await userManager.CreateAsync(userDto.ToUser(), userDto.Password);
-        if (!result.Succeeded)
-            return BadRequest(result.Errors);
-
+    
+    [Authorize]
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout() {
+        await signInManager.SignOutAsync();
         return Ok(new { message = "User creation successful" });
     }
 }

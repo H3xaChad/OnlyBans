@@ -1,4 +1,4 @@
-﻿Spine/secrets.env
+﻿secrets.env
 
 # Ignore build output and temp files
 **/bin/
@@ -12,7 +12,7 @@
 *.vs
 *.vscode
 
-appsettings.json
+# appsettings.json
 launchSettings.json
 
 # Ignore user-specific Rider settings
