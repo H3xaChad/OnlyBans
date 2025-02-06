@@ -34,7 +34,7 @@ namespace OnlyBans.Backend.Spine.Validation
         {
             /*try
             {*/
-            if (checkUserState(content.Creator.State))
+            if (checkUserState(content.User.State))
                 return false;
             /*}
             catch (Exception e)
@@ -48,12 +48,11 @@ namespace OnlyBans.Backend.Spine.Validation
             if (shadwoBan)
                 return false;
 
-            Guid userID = content.CreatorId;
+            Guid userID = content.UserId;
             string contentText = content.Text;
             string contentTitle = content.Title;
             
             rh.checkTitle(contentTitle);
-            
             
             return false;
         }
