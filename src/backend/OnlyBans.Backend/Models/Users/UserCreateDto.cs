@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using OnlyBans.Backend.Security;
 
 namespace OnlyBans.Backend.Models.Users;
 
@@ -9,7 +8,7 @@ public class UserCreateDto {
     [Required]
     [MinLength(1)]
     [MaxLength(42)]
-    public required string Name { get; init; }
+    public required string UserName { get; init; }
 
     [Required]
     [DefaultValue("user@example.com")]
@@ -30,10 +29,11 @@ public class UserCreateDto {
 
     public User ToUser() {
         return new User {
-            UserName = Name,
+            UserName = UserName,
             Email = Email,
             PhoneNumber = PhoneNumber,
-            BirthDate = BirthDate
+            BirthDate = BirthDate,
+            State = UserState.Free
         };
     }
 }

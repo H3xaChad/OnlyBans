@@ -1,12 +1,8 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using OnlyBans.Backend.Data;
-using OnlyBans.Backend.Models;
 using OnlyBans.Backend.Models.Users;
-using OnlyBans.Backend.Security;
 
 namespace OnlyBans.Backend.Controllers;
 
@@ -59,17 +55,9 @@ public class UserController(AppDbContext context) : ControllerBase {
         if (emailExists)
             return Conflict(new { message = "Email is already in use." });
 
-        var newUser = new User {
-            UserName = userDto.Name,
-            Email = userDto.Email,
-            PhoneNumber = userDto.PhoneNumber,
-            BirthDate = userDto.BirthDate,
-            // isBanned = false,
-            PasswordHash = PasswordHasher.HashPassword(userDto.Password)
-        };
-        
-        await context.Users.AddAsync(newUser);
+        var user = userDto.ToUser();
+        await context.Users.AddAsync(user);
         await context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetUser), new { id = newUser.Id }, newUser);
+        return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
     }
 }

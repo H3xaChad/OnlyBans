@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OnlyBans.Backend.Data;
 using OnlyBans.Backend.Models;
 using OnlyBans.Backend.Models.Users;
-using OnlyBans.Backend.Security;
 
 namespace OnlyBans.Backend.Controllers;
 
