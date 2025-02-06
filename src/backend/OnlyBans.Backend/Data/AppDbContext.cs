@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlyBans.Backend.Models;
 using OnlyBans.Backend.Models.Comments;
 using OnlyBans.Backend.Models.Posts;
+using OnlyBans.Backend.Models.Rules;
 using OnlyBans.Backend.Models.Users;
 
 namespace OnlyBans.Backend.Data;
@@ -12,6 +13,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     : IdentityDbContext<User, UserRole, Guid>(options) {
     
     public DbSet<Post> Posts { get; init; }
+    
+    public DbSet<Rule> Rules { get; init; }
     public DbSet<Comment> Comments { get; init; }
     public DbSet<UserPostLike> UserPostLikes { get; init; }
 

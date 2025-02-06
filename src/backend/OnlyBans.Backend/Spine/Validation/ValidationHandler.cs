@@ -57,5 +57,4 @@ namespace OnlyBans.Backend.Spine.Validation
             return false;
         }
     }
-    
 }
