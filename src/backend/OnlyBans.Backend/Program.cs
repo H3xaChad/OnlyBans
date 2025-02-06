@@ -7,7 +7,7 @@ using OnlyBans.Backend.Models.Users;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresRemoteConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresLocalConnection")));
 
 builder.Services.AddIdentity<User, IdentityRole<Guid>>(options => {
     options.SignIn.RequireConfirmedAccount = false;

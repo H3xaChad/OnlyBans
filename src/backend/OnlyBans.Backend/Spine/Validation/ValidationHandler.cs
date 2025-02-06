@@ -18,11 +18,11 @@ namespace OnlyBans.Backend.Spine.Validation
 
         public string validateContent(Post content)
         {
-            if (checkUserState(content.Creator.State))
+            if (checkUserState(content.User.State))
             {
                 return "User is banned";
             }
-            Guid userID = content.CreatorId;
+            Guid userID = content.UserId;
             string contentText = content.Text;
             string contentTitle = content.Title;
 

@@ -15,5 +15,5 @@ public class PostCreateDto {
     public required string Text { get; init; }
 
     [Required]
-    public required Guid CreatorId { get; init; }
+    public required Guid UserId { get; init; }
 }
