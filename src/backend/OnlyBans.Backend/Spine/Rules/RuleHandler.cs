@@ -8,9 +8,4 @@ public class RuleHandler
         handlerID = HandlerTracker.lRuleHandlers.Count;
         HandlerTracker.lRuleHandlers.Add(this);
     }
-
-    public static bool checkIfUserIsBanned(Guid userId)
-    {
-        
-    }
 }

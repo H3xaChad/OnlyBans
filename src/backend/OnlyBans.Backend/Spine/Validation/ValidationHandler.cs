@@ -1,4 +1,5 @@
 ﻿using OnlyBans.Backend.Models.Posts;
+using OnlyBans.Backend.Models.Users;
 using OnlyBans.Backend.Spine.Rules;
 
 namespace OnlyBans.Backend.Spine.Validation
@@ -17,17 +18,22 @@ namespace OnlyBans.Backend.Spine.Validation
 
         public string validateContent(Post content)
         {
-            Guid userID = content.CreatorId;
-            string contentText = content.Text;
-            string contentTitle = content.Title;
-            if (RuleHandler.checkIfUserIsBanned(userID))
+            if (checkUserState(content.Creator.State))
             {
                 return "User is banned";
             }
+            Guid userID = content.CreatorId;
+            string contentText = content.Text;
+            string contentTitle = content.Title;
 
             // Additional validation logic here
 
             return "Content is valid";
+        }
+        
+        private bool checkUserState(UserState state)
+        {
+            return state == UserState.Banned;
         }
     }
 }
