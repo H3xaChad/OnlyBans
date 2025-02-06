@@ -6,8 +6,8 @@ namespace OnlyBans.Backend.Spine;
 
 public static class HandlerTracker
 {
-    public static List<ValidationHandler<T>> lValidationHandlers { get; set; } = new();
-    public static List<ChallangeHandler<T>> lChallangeHandlers { get; set; } = new();
-    public static List<RuleHandler<T>> lRuleHandlers { get; set; } = new();
+    public static List<ValidationHandler> lValidationHandlers { get; set; } = new();
+    public static List<ChallangeHandler> lChallangeHandlers { get; set; } = new();
+    public static List<RuleHandler> lRuleHandlers { get; set; } = new();
     
 }
