@@ -17,17 +17,22 @@ namespace OnlyBans.Backend.Spine.Validation
 
         public string validateContent(Post content)
         {
-            Guid userID = content.CreatorId;
-            string contentText = content.Text;
-            string contentTitle = content.Title;
-            if (RuleHandler.checkIfUserIsBanned(userID))
+            if (checkUserState(content.Creator.userState))
             {
                 return "User is banned";
             }
+            Guid userID = content.CreatorId;
+            string contentText = content.Text;
+            string contentTitle = content.Title;
 
             // Additional validation logic here
 
             return "Content is valid";
+        }
+        
+        private bool checkUserState(userState state)
+        {
+            return state == userState.Banned;
         }
     }
 }
