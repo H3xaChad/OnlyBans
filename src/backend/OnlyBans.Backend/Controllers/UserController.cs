@@ -45,19 +45,4 @@ public class UserController(AppDbContext context) : ControllerBase {
         var image = System.IO.File.OpenRead(imagePath);
         return File(image, contentType);
     }
-    
-    [HttpPost]
-    public async Task<ActionResult<User>> CreateUser([FromBody] UserCreateDto userDto) {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        var emailExists = await context.Users.AnyAsync(u => u.Email == userDto.Email);
-        if (emailExists)
-            return Conflict(new { message = "Email is already in use." });
-
-        var user = userDto.ToUser();
-        await context.Users.AddAsync(user);
-        await context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
-    }
 }
