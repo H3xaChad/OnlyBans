@@ -8,4 +8,11 @@ public class RuleHandler
         handlerID = HandlerTracker.lRuleHandlers.Count;
         HandlerTracker.lRuleHandlers.Add(this);
     }
+    
+    public bool checkTitle(string title)
+    {
+        if (title.Length > 42)
+            return false;
+        return true;
+    }
 }
