@@ -10,6 +10,8 @@
 *.vs
 *.vscode
 
+appsettings.json
+
 # Ignore user-specific Rider settings
 .idea/
 .idea/**/workspace.xml
