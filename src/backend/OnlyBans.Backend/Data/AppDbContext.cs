@@ -13,6 +13,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     
     public DbSet<Post> Posts { get; init; }
     public DbSet<Comment> Comments { get; init; }
+    public DbSet<UserPostLike> UserPostLikes { get; init; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         modelBuilder.HasPostgresExtension("uuid-ossp");

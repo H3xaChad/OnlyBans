@@ -1,4 +1,6 @@
-﻿# Ignore build output and temp files
+﻿Spine/secrets.env
+
+# Ignore build output and temp files
 **/bin/
 **/obj/
 **/out/

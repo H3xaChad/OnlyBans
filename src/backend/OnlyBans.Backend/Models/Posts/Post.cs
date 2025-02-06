@@ -10,19 +10,14 @@ public class Post {
     [Key]
     public Guid Id { get; init; }
 
-    [Required]
-    [MaxLength(42)]
-    public required string Title { get; init; }
+    public string Title { get; init; } = null!;
 
-    [Required]
-    [MaxLength(1600)]
-    public required string Text { get; init; }
+    public string Text { get; init; } = null!;
 
-    [Required]
-    public required Guid CreatorId { get; init; }
+    [ForeignKey(nameof(User))]
+    public Guid UserId { get; init; }
 
-    [ForeignKey(nameof(CreatorId))]
-    public required User Creator { get; init; }
+    public User User { get; init; } = null!;
 
     public List<UserPostLike> LikedByUsers { get; set; } = [];
 }

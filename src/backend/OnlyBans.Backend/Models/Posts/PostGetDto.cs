@@ -8,5 +8,5 @@ public class PostGetDto(Post post) {
 
     public string Text { get; } = post.Text;
 
-    public Guid CreatorId { get; } = post.CreatorId;
+    public Guid UserId { get; } = post.UserId;
 }
