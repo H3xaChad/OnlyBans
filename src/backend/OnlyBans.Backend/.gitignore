@@ -1,7 +1,7 @@
 ﻿# Ignore build output and temp files
-bin/
-obj/
-out/
+**/bin/
+**/obj/
+**/out/
 *.exe
 *.dll
 *.pdb
