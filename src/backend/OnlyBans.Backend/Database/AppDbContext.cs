@@ -7,7 +7,7 @@ using OnlyBans.Backend.Models.Posts;
 using OnlyBans.Backend.Models.Rules;
 using OnlyBans.Backend.Models.Users;
 
-namespace OnlyBans.Backend.Data;
+namespace OnlyBans.Backend.Database;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options)
     : IdentityDbContext<User, UserRole, Guid>(options) {

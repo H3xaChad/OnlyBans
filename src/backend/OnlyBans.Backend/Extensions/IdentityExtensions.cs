@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using OnlyBans.Backend.Data;
+using OnlyBans.Backend.Database;
 using OnlyBans.Backend.Models.Users;
 
 namespace OnlyBans.Backend.Extensions;

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OnlyBans.Backend.Data;
+using OnlyBans.Backend.Database;
 
 namespace OnlyBans.Backend.Extensions;
 

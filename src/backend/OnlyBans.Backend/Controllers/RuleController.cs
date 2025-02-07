@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
-using OnlyBans.Backend.Data;
+using OnlyBans.Backend.Database;
 using OnlyBans.Backend.Models;
 using OnlyBans.Backend.Models.Posts;
 using OnlyBans.Backend.Models.Rules;

@@ -10,7 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="713cb93f-f2fb-4c64-b9ef-8b5b51a95a8a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/CommentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/CommentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/PostController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/PostController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/RuleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/RuleController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Database/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Database/AppDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/DatabaseExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/DatabaseExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/IdentityExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/IdentityExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +32,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Controllers/UserController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Comments/Comment.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Comments/CommentGetDto.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Posts/Post.cs" root0="SKIP_HIGHLIGHTING" />
