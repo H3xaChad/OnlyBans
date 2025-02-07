@@ -1,7 +1,7 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using OnlyBans.Backend.Data;
 using OnlyBans.Backend.Models;
@@ -30,19 +30,32 @@ public class PostController(AppDbContext context, UserManager<User> userManager)
     }
     
     [Authorize]
-    [HttpPost("{id:guid}/like")]
-    public async Task<IActionResult> LikePost(Guid id) {
+    [HttpPost]
+    public async Task<ActionResult<UserGetDto>> CreatePost(PostCreateDto dto) {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
         
         var user = await userManager.GetUserAsync(User);
-        if (user == null)
-            return Unauthorized(new { message = "You are not logged in!" });
-        
+        var post = new Post {
+            Title = dto.Title,
+            Text = dto.Text,
+            UserId = Guid.Empty
+        };
+        context.Posts.Add(post);
+        await context.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetPost), new { id = post.Id }, new PostGetDto(post));
+    }
+    
+    [HttpPost("{id:guid}/like")]
+    public async Task<IActionResult> LikePost(Guid id) {
+        var userId = Guid.Empty;
+
         var post = await context.Posts.FindAsync(id);
         if (post == null)
             return NotFound(new { message = "Post not found" });
         
         var existingLike = await context.UserPostLikes
-            .FirstOrDefaultAsync(l => l.PostId == id && l.UserId == user.Id);
+            .FirstOrDefaultAsync(l => l.PostId == id && l.UserId == userId);
 
         if (existingLike != null) {
             context.UserPostLikes.Remove(existingLike);
@@ -52,10 +65,11 @@ public class PostController(AppDbContext context, UserManager<User> userManager)
         
         var like = new UserPostLike {
             PostId = id,
-            UserId = user.Id
+            UserId = userId
         };
         context.UserPostLikes.Add(like);
         await context.SaveChangesAsync();
         return Ok(new { message = "Post liked successfully" });
     }
+
 }
