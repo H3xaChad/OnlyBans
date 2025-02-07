@@ -10,11 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="713cb93f-f2fb-4c64-b9ef-8b5b51a95a8a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/ApplicationBuilderExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/AuthenticationExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/DatabaseExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/IdentityExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OnlyBans.Backend/reset_db.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/dataSources.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Config/PostgresConfig.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Database/AppDbContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/OnlyBans.Backend.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/OnlyBans.Backend.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +34,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Controllers/UserController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Comments/Comment.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Comments/CommentGetDto.cs" root0="SKIP_HIGHLIGHTING" />

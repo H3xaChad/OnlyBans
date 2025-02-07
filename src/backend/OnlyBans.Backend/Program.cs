@@ -1,54 +1,19 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using OnlyBans.Backend.Data;
-using OnlyBans.Backend.Models.Users;
+using OnlyBans.Backend.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 DotNetEnv.Env.Load();
-
 builder.Configuration.AddUserSecrets<Program>();
 
-var postgresConnection = builder.Configuration.GetConnectionString("PostgresLocal") ??
-                         throw new Exception("Database connection string is missing");
-
-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(postgresConnection));
-
-builder.Services.AddIdentity<User, IdentityRole<Guid>>(options => {
-    options.SignIn.RequireConfirmedAccount = false;
-    options.User.RequireUniqueEmail = true;
-    options.User.AllowedUserNameCharacters = "@abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-.";
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireDigit = true;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 8;
-})
-.AddEntityFrameworkStores<AppDbContext>()
-.AddDefaultTokenProviders()
-.AddRoles<UserRole>()
-.AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<User, UserRole>>()
-.AddDefaultTokenProviders()
-.AddSignInManager();
-
-builder.Services.AddScoped<IRoleStore<UserRole>, RoleStore<UserRole, AppDbContext, Guid>>();
-builder.Services.AddScoped<IUserStore<User>, UserStore<User, UserRole, AppDbContext, Guid>>();
+builder.Services.AddDatabase(builder.Configuration);
+builder.Services.AddApplicationIdentity();
+// builder.Services.AddApplicationAuthentication(builder.Configuration);
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-if (app.Environment.IsDevelopment()) {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
+app.ConfigureMiddleware();
 app.Run();
