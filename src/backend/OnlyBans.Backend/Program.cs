@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using OnlyBans.Backend.Config;
 using OnlyBans.Backend.Data;
 using OnlyBans.Backend.Models.Users;
 
@@ -9,21 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 DotNetEnv.Env.Load();
 
-var config = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddEnvironmentVariables()
-    .Build();
+builder.Configuration.AddUserSecrets<Program>();
 
-var postgresLocalConfig = new PostgresConfig();
-config.GetSection("PostgresLocal").Bind(postgresLocalConfig);
-postgresLocalConfig.OverrideWithEnv("POSTGRES");
+var postgresConnection = builder.Configuration.GetConnectionString("PostgresLocal") ??
+                         throw new Exception("Database connection string is missing");
 
-var postgresRemoteConfig = new PostgresConfig();
-config.GetSection("PostgresRemote").Bind(postgresRemoteConfig);
-postgresRemoteConfig.OverrideWithEnv("POSTGRES");
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(postgresLocalConfig.GetConnectionString()));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(postgresConnection));
 
 builder.Services.AddIdentity<User, IdentityRole<Guid>>(options => {
     options.SignIn.RequireConfirmedAccount = false;
