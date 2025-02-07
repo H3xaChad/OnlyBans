@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using OnlyBans.Backend.Data;
@@ -10,7 +12,7 @@ namespace OnlyBans.Backend.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]
-public class PostController(AppDbContext context) : ControllerBase {
+public class PostController(AppDbContext context, UserManager<User> userManager) : ControllerBase {
     
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserGetDto>>> GetPosts() {
@@ -25,6 +27,23 @@ public class PostController(AppDbContext context) : ControllerBase {
             return NotFound();
 
         return Ok(new PostGetDto(post));
+    }
+    
+    [Authorize]
+    [HttpPost]
+    public async Task<ActionResult<UserGetDto>> CreatePost(PostCreateDto dto) {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+        
+        var user = await userManager.GetUserAsync(User);
+        var post = new Post {
+            Title = dto.Title,
+            Text = dto.Text,
+            UserId = Guid.Empty
+        };
+        context.Posts.Add(post);
+        await context.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetPost), new { id = post.Id }, new PostGetDto(post));
     }
     
     [HttpPost("{id:guid}/like")]
