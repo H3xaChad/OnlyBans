@@ -11,10 +11,10 @@ namespace OnlyBans.Backend.Spine.Validation
         private Post _post;
         private bool shadwoBan;
         public RuleHandler rh;
-        public ValidationHandler(Post post)
+        public ValidationHandler(/*Post post*/)
         {
             handlerID = HandlerTracker.lValidationHandlers.Count;
-            _post = post;
+            //_post = post;
             HandlerTracker.lValidationHandlers.Add(this);
             rh = new RuleHandler();
         }

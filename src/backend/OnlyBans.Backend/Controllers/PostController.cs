@@ -7,6 +7,7 @@ using OnlyBans.Backend.Data;
 using OnlyBans.Backend.Models;
 using OnlyBans.Backend.Models.Posts;
 using OnlyBans.Backend.Models.Users;
+using OnlyBans.Backend.Spine.Validation;
 
 namespace OnlyBans.Backend.Controllers;
 
@@ -32,18 +33,27 @@ public class PostController(AppDbContext context, UserManager<User> userManager)
     [Authorize]
     [HttpPost]
     public async Task<ActionResult<UserGetDto>> CreatePost(PostCreateDto dto) {
-        if (!ModelState.IsValid)
+        /*if (!ModelState.IsValid)
             return BadRequest(ModelState);
         
         var user = await userManager.GetUserAsync(User);
+        
+        if (user == null)
+            return Unauthorized();
+        
+        if 
+        
         var post = new Post {
             Title = dto.Title,
             Text = dto.Text,
             UserId = Guid.Empty
         };
         context.Posts.Add(post);
-        await context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetPost), new { id = post.Id }, new PostGetDto(post));
+        await context.SaveChangesAsync();*/
+        ValidationHandler vh = new ValidationHandler();
+        // vh.validateContent()
+        return Ok("Test successful :)");
+        //return CreatedAtAction(nameof(GetPost), new { id = post.Id }, new PostGetDto(post));
     }
     
     [HttpPost("{id:guid}/like")]

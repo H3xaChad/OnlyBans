@@ -8,7 +8,7 @@ namespace OnlyBans.Backend.Spine.AI
 
         public AiApiKeyHandler()
         {
-            Env.Load("spine/secret.env");
+            Env.Load("secret.env");
             _filePath = Env.GetString("API_KEY_PATH");
             Console.Write(_filePath);
         }
