@@ -62,10 +62,10 @@ appsettings.Development.json
 Migrations/
 
 # Ignore Docker build files
-Dockerfile
-docker-compose.override.yml
-docker-compose.yml
-*.dockerignore
+#Dockerfile
+#docker-compose.override.yml
+#docker-compose.yml
+#*.dockerignore
 
 # Ignore NuGet cache and package-related files
 .nuget/

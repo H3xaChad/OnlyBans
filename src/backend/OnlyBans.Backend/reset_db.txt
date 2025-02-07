@@ -1,0 +1,8 @@
+1.
+dotnet ef database drop --force
+2.
+Alle Migrations löschen!
+3.
+dotnet ef migrations add InitialCreate
+4.
+dotnet ef database update

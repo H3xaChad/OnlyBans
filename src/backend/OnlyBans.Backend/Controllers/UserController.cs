@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
-using OnlyBans.Backend.Data;
+using OnlyBans.Backend.Database;
 using OnlyBans.Backend.Models.Users;
 
 namespace OnlyBans.Backend.Controllers;

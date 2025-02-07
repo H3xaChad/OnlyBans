@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OnlyBans.Backend.Data;
+using OnlyBans.Backend.Database;
 using OnlyBans.Backend.Models.Comments;
 using OnlyBans.Backend.Models.Posts;
 
