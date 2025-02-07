@@ -15,4 +15,6 @@ public class UserPostLike {
     public Guid PostId { get; init; }
     
     public Post Post { get; init; } = null!;
+    
+    public DateTime LikedAt { get; init; } = DateTime.UtcNow;
 }

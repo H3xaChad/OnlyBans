@@ -14,9 +14,8 @@ public class UserController(AppDbContext context, UserManager<User> userManager)
     
     private const string UserAvatarPath = "Uploads/Avatars";
     
-    [HttpGet("")]
+    [HttpGet("me")]
     [Authorize]
-    [ProducesResponseType(typeof(UserGetDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCurrentUser() {
         var user = await userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();

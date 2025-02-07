@@ -10,39 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="713cb93f-f2fb-4c64-b9ef-8b5b51a95a8a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/PostController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/PostController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OnlyBans.Backend/Config/PostgresConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Data/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Models/Users/UserFollow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Models/Users/UserFollow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Models/UserPostLike.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Models/UserPostLike.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/OnlyBans.Backend.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/OnlyBans.Backend.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Spine/secrets.env" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/secrets.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/.editorconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/.vscode/extensions.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/.vscode/launch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/.vscode/tasks.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/angular.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/src/app/app.component.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/src/app/app.component.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/src/app/app.component.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/src/app/app.component.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/src/app/app.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/src/app/app.routes.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/src/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/src/main.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/src/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/tsconfig.app.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/OnlyBans.Frontend/tsconfig.spec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Security/PasswordHasher.cs.discontinued" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/secrets.env" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/secrets.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +61,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.import&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -159,7 +136,8 @@
       <workItem from="1738854555102" duration="674000" />
       <workItem from="1738855485442" duration="686000" />
       <workItem from="1738873044299" duration="66000" />
-      <workItem from="1738873136722" duration="305000" />
+      <workItem from="1738873136722" duration="2406000" />
+      <workItem from="1738911731614" duration="5163000" />
     </task>
     <servers />
   </component>

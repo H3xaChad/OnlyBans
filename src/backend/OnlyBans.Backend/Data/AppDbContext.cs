@@ -27,7 +27,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
             .IsUnique();
 
         modelBuilder.Entity<UserPostLike>()
-            .HasKey(l => new { l.UserId, l.PostId });
+            .HasKey(x => new { x.UserId, x.PostId });
+
+        modelBuilder.Entity<UserFollow>()
+            .HasKey(x => new { x.FollowerId, x.FollowedId });
         
         modelBuilder.Entity<IdentityUserLogin<Guid>>()
             .HasKey(l => new { l.LoginProvider, l.ProviderKey });
