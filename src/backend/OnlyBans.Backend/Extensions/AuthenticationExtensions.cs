@@ -59,7 +59,7 @@ public static class AuthenticationExtensions {
                 opt.GetClaimsFromUserInfoEndpoint = true;
                 opt.AuthenticationMethod = OpenIdConnectRedirectBehavior.RedirectGet;
                 opt.SignInScheme = IdentityConstants.ExternalScheme;
-                opt.CallbackPath = "/api/v1/login-oidc";
+                opt.CallbackPath = $"/api/v1/login/{provider.Name}";
                 foreach (var scope in provider.Scopes
                     .Split(',', StringSplitOptions.RemoveEmptyEntries)
                     .Select(s => s.Trim())) {
