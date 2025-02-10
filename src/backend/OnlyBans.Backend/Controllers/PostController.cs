@@ -31,31 +31,27 @@ public class PostController(AppDbContext context, UserManager<User> userManager)
     
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<UserGetDto>> CreatePost(PostCreateDto dto) {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-        
+    public async Task<ActionResult<UserGetDto>> CreatePost(PostCreateDto postDto) {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
         var user = await userManager.GetUserAsync(User);
-        var post = new Post {
-            Title = dto.Title,
-            Text = dto.Text,
-            UserId = Guid.Empty
-        };
+        if (user == null) return Unauthorized("Please log in to create a post");
+        var post = postDto.ToPost(user.Id);
         context.Posts.Add(post);
         await context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetPost), new { id = post.Id }, new PostGetDto(post));
+        return CreatedAtAction(nameof(GetPost), new { id = post.Id }, post);
     }
     
     [HttpPost("{id:guid}/like")]
     public async Task<IActionResult> LikePost(Guid id) {
-        var userId = Guid.Empty;
+        var user = await userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized("Please log in to create a post");
 
         var post = await context.Posts.FindAsync(id);
         if (post == null)
             return NotFound(new { message = "Post not found" });
         
         var existingLike = await context.UserPostLikes
-            .FirstOrDefaultAsync(l => l.PostId == id && l.UserId == userId);
+            .FirstOrDefaultAsync(l => l.PostId == id && l.UserId == user.Id);
 
         if (existingLike != null) {
             context.UserPostLikes.Remove(existingLike);
@@ -65,7 +61,7 @@ public class PostController(AppDbContext context, UserManager<User> userManager)
         
         var like = new UserPostLike {
             PostId = id,
-            UserId = userId
+            UserId = user.Id
         };
         context.UserPostLikes.Add(like);
         await context.SaveChangesAsync();

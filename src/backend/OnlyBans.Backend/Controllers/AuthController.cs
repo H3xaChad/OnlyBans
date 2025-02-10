@@ -35,6 +35,13 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
         });
     }
     
+    [HttpGet("login/{providerName}")]
+    public IActionResult Login(string providerName, string? returnUrl = null) {
+        var redirectUrl = Url.Action("ExternalCallback", new { returnUrl });
+        var properties = signInManager.ConfigureExternalAuthenticationProperties(providerName, redirectUrl);
+        return new ChallengeResult(providerName, properties);
+    }
+    
     [Authorize]
     [HttpPost("logout")]
     public async Task<IActionResult> Logout() {

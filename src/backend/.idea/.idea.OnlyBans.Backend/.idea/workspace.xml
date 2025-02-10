@@ -10,14 +10,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="713cb93f-f2fb-4c64-b9ef-8b5b51a95a8a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/OnlyBans.Backend/Config/OidcConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/dataSources/4d13df9d-7bec-49c7-a48f-16770365d30c.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/dataSources/4d13df9d-7bec-49c7-a48f-16770365d30c/storage_v2/_src_/database/onlybans.8G-yhA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/dataSources/4d13df9d-7bec-49c7-a48f-16770365d30c/storage_v2/_src_/database/onlybans.8G-yhA/schema/public.abK9xQ.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/CommentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/CommentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/PostController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/PostController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/RuleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/RuleController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Database/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Database/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/DatabaseExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/DatabaseExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/IdentityExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/IdentityExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/AuthenticationExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/AuthenticationExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Models/Posts/PostCreateDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Models/Posts/PostCreateDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.vscode/extensions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.vscode/tasks.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/angular.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.routes.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/tsconfig.app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/tsconfig.spec.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,13 +57,16 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8a03fcac5714437e83949a44ecf2e771c90920/0f/1d673566/InvalidOperationException.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8a03fcac5714437e83949a44ecf2e771c90920/b4/bdbd0e61/ExceptionDispatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Comments/Comment.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Comments/CommentGetDto.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Posts/Post.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Posts/PostCreateDto.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Users/UserFollow.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Posts/PostCreateDto.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Users/UserFollow.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Users/UserGetDto.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Program.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -56,25 +85,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.OnlyBans.Backend: http.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.OnlyBans.Backend: http.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.OnlyBans.Backend: http">
     <configuration name="OnlyBans.Backend: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/OnlyBans.Backend/OnlyBans.Backend.csproj" />
@@ -143,6 +172,7 @@
       <workItem from="1738873044299" duration="66000" />
       <workItem from="1738873136722" duration="2406000" />
       <workItem from="1738911731614" duration="5948000" />
+      <workItem from="1739171843511" duration="5229000" />
     </task>
     <servers />
   </component>
