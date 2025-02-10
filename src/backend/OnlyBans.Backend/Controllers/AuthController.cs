@@ -10,7 +10,7 @@ namespace OnlyBans.Backend.Controllers;
 [Route("api/v1/[controller]")]
 public class AuthController(UserManager<User> userManager, SignInManager<User> signInManager) : ControllerBase {
     
-    [HttpPost("register")]
+    [HttpPost("register", Name = "register")]
     public async Task<IActionResult> Register([FromBody] UserCreateDto userDto) {
         var result = await userManager.CreateAsync(userDto.ToUser(), userDto.Password);
         if (!result.Succeeded)
@@ -19,7 +19,7 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
         return Ok(new { message = "User creation successful" });
     }
     
-    [HttpPost("login")]
+    [HttpPost("login", Name = "login")]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto) {
         var user = await userManager.FindByEmailAsync(loginDto.Email);
         if (user == null)

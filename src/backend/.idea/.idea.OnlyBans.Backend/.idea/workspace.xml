@@ -11,11 +11,12 @@
   <component name="ChangeListManager">
     <list default="true" id="713cb93f-f2fb-4c64-b9ef-8b5b51a95a8a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/ApplicationBuilderExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/ApplicationBuilderExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/OnlyBans.Backend.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/OnlyBans.Backend.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/routes/login/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/routes/login/+page.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,11 +33,12 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8a03fcac5714437e83949a44ecf2e771c90920/0f/1d673566/InvalidOperationException.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8a03fcac5714437e83949a44ecf2e771c90920/b4/bdbd0e61/ExceptionDispatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d7b38c7b68e42a73acef29a6dc1216d8ab2873c6617f3688a729528bff736/SignInManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Comments/Comment.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Comments/CommentGetDto.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Posts/Post.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Posts/Post.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Posts/PostCreateDto.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Users/UserFollow.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/OnlyBans.Backend/Models/Users/UserGetDto.cs" root0="SKIP_HIGHLIGHTING" />

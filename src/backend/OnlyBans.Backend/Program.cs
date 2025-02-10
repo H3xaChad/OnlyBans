@@ -24,7 +24,7 @@ builder.Services.AddSwaggerGen(opt => {
         new OpenApiInfo {
             Title = "OnlyBans",
             Version = "v1",
-            Description = @"API Description for OnlyBans"
+            Description = "API Description for OnlyBans"
         });
     opt.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
     opt.MapType<DateOnly>(() => new OpenApiSchema {

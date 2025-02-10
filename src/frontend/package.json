@@ -11,7 +11,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint .",
+        "swagger": "sta -p http://localhost:5107/api/swagger/v1/swagger.json -o src/lib/api -t src/api-templates --module-name-index 2"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
