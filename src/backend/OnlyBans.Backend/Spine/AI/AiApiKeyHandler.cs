@@ -1,4 +1,5 @@
-﻿using DotNetEnv;
+﻿using System.Net;
+using DotNetEnv;
 
 namespace OnlyBans.Backend.Spine.AI
 {
@@ -8,9 +9,9 @@ namespace OnlyBans.Backend.Spine.AI
 
         public AiApiKeyHandler()
         {
-            Env.Load("secret.env");
+            Env.Load("secrets.env");
             _filePath = Env.GetString("API_KEY_PATH");
-            Console.Write(_filePath);
+            Console.WriteLine(_filePath);
         }
 
         public string GetApiKey()
@@ -18,10 +19,9 @@ namespace OnlyBans.Backend.Spine.AI
             if (!File.Exists(_filePath))
             {
                 //logger einbauen!
-                //throw new FileNotFoundException("API key file not found.", _filePath);
+                throw new Exception($"API key file not found: {_filePath}");
             }
-
-            return File.ReadAllText(_filePath).Trim();
+            return File.ReadAllText(_filePath); 
         }
     }
 }

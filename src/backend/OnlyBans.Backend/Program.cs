@@ -1,4 +1,5 @@
 using OnlyBans.Backend.Extensions;
+using OnlyBans.Backend.Spine.Rules;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<RuleHandler>();
 
 var app = builder.Build();
 app.ConfigureMiddleware();

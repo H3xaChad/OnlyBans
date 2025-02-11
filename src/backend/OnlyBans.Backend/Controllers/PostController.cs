@@ -41,7 +41,7 @@ public class PostController(AppDbContext context, UserManager<User> userManager)
         if (user == null)
             return Unauthorized();
         
-        ValidationHandler vh = new ValidationHandler();
+        ValidationHandler vh = new ValidationHandler(context);
         var post = postDto.ToPost(user.Id);
         if (!vh.validateContent(post))
             return BadRequest("Der Filter findest du bist ein Huso");
