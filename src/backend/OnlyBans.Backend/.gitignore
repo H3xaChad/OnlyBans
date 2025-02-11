@@ -16,25 +16,25 @@
 launchSettings.json
 
 # Ignore user-specific Rider settings
-.idea/
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/shelf/
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/**/gradle.xml
-.idea/**/misc.xml
-.idea/**/modules.xml
-.idea/**/riderModuleCache/
+../.idea/
+../.idea/**/workspace.xml
+../.idea/**/tasks.xml
+../.idea/**/shelf/
+../.idea/**/dataSources/
+../.idea/**/dataSources.ids
+../.idea/**/dataSources.local.xml
+../.idea/**/sqlDataSources.xml
+../.idea/**/dynamic.xml
+../.idea/**/uiDesigner.xml
+../.idea/**/gradle.xml
+../.idea/**/misc.xml
+../.idea/**/modules.xml
+../.idea/**/riderModuleCache/
 
 # Ignore ReSharper settings
 *.suo
 *.user
-*.sln.DotSettings
+*.sln.DotSettings*
 *.csproj.user
 *.dotCover
 *.ncrunchsolution
@@ -81,7 +81,6 @@ packages.lock.json
 # Ignore Logs
 logs/
 log/
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -11,9 +11,7 @@
 
 	async function handleLogin(event: Event) {
         event.preventDefault();
-
         const loginDto: LoginDto = { email, password };
-
         try {
             const res = await api.auth.login(loginDto).then(r => r.json());
             localStorage.setItem('auth_token', res.token);

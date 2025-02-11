@@ -61,8 +61,8 @@ public static class AuthenticationExtensions {
                 opt.SignInScheme = IdentityConstants.ExternalScheme;
                 opt.CallbackPath = $"/api/v1/login/{provider.Name}";
                 foreach (var scope in provider.Scopes
-                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(s => s.Trim())) {
+                             .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                             .Select(s => s.Trim())) {
                     opt.Scope.Add(scope);
                 }
             });

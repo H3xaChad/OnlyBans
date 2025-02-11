@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-    import type { User } from '$lib/types'
+    import { Api, type UserGetDto } from '$lib/api/Api'
 
-    let user: User | null = null
+    const api = new Api()
+
+    let user: UserGetDto | null = null
 
 	onMount(async () => {
 		const token = localStorage.getItem('auth_token')
@@ -10,6 +12,8 @@
 			window.location.href = '/login'
 			return;
 		}
+        
+        // let user = await api.user.me().then(r => r.data)
 
 		const res = await fetch('http://localhost:5107/api/v1/user/me', {
 			credentials: 'include'

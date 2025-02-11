@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Diagnostics;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -52,7 +53,7 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
     }
     
     [AllowAnonymous]
-    [HttpGet("external/callback")]
+    [HttpGet("external/callback", Name = "external-callback")]
     public async Task<IActionResult> ExternalCallback(string? returnUrl = null) {
         if (User.Identity is { IsAuthenticated: true }) await signInManager.SignOutAsync();
 
@@ -92,12 +93,16 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
         // Create a new user.
         var user = new User {
             Email = email,
-            UserName = claims.SingleOrDefault(x => x.Type == ClaimConstants.Name)?.Value,
+            UserName = claims.SingleOrDefault(x => x.Type == ClaimConstants.Name)?.Value ?? email,
             BirthDate = DateOnly.FromDateTime(DateTime.UtcNow)
         };
 
         var createResult = await userManager.CreateAsync(user);
         if (!createResult.Succeeded) {
+            Debug.WriteLine("Errors while creating Oauth2 user:");
+            foreach (var err in createResult.Errors) {
+                Debug.WriteLine(err);
+            }
             return BadRequest("User creation failed.");
         }
 
@@ -112,5 +117,4 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
         await signInManager.SignInAsync(user, isPersistent: true, info.LoginProvider);
         return returnUrl != null ? Redirect(returnUrl) : NoContent();
     }
-    
 }

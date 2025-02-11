@@ -375,6 +375,26 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				path: `/api/v1/auth/logout`,
 				method: 'POST',
 				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Auth
+		 * @name V1AuthExternalCallbackList
+		 * @request GET:/api/v1/auth/external/callback
+		 */
+		v1AuthExternalCallbackList: (
+			query?: {
+				returnUrl?: string;
+			},
+			params: RequestParams = {}
+		) =>
+			this.request<void, any>({
+				path: `/api/v1/auth/external/callback`,
+				method: 'GET',
+				query: query,
+				...params
 			})
 	};
 	comment = {
