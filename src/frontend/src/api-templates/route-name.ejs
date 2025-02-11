@@ -1,0 +1,8 @@
+<%
+const { routeInfo, utils } = it;
+const { operationId } = routeInfo;
+if (operationId) {
+  return operationId.replace(/^v1/, "");
+}
+return "unknownMethod";
+%>
