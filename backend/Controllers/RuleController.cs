@@ -21,16 +21,6 @@ public class RuleController(AppDbContext context, UserManager<User> userManager)
         var rules = await context.Rules.ToListAsync();
         return Ok(rules.Select(rule => new RuleGetDto(rule)));
     }
-
-    [HttpGet("rulesText")]
-    public async Task<ActionResult<IEnumerable<RuleTextDto>>> GetRulesText()
-    {
-        var rulesText = await context.Rules
-            .Select(r => new RuleTextDto(r))
-            .ToListAsync();
-
-        return Ok(rulesText);
-    }
     
     [HttpGet("{id:guid}", Name = "getRule")]
     public async Task<ActionResult<RuleGetDto>> GetRule(Guid id) {

@@ -51,7 +51,15 @@ namespace OnlyBans.Backend.Spine.Validation
                 return false;
             */
             
+            if (content == null)
+                throw new ArgumentNullException(nameof(content));
+
+            if (content.User == null)
+                throw new ArgumentNullException(nameof(content.User));
+
+            
             Guid userID = content.UserId;
+            string username = content.User.UserName;
             string contentText = content.Text;
             string contentTitle = content.Title;
             Console.WriteLine("validating now");
