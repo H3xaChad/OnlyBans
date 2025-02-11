@@ -7,11 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 DotNetEnv.Env.Load();
 builder.Configuration.AddUserSecrets<Program>();
 
-Console.WriteLine("===== LOADED CONFIGURATION =====");
-foreach (var kvp in builder.Configuration.AsEnumerable()) {
-    Console.WriteLine($"{kvp.Key} = {kvp.Value}");
-}
-Console.WriteLine("================================");
+// Console.WriteLine("===== LOADED CONFIGURATION =====");
+// foreach (var kvp in builder.Configuration.AsEnumerable()) {
+//     Console.WriteLine($"{kvp.Key} = {kvp.Value}");
+// }
+// Console.WriteLine("================================");
 
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddApplicationIdentity();

@@ -55,23 +55,20 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
     [AllowAnonymous]
     [HttpGet("external/callback", Name = "external-callback")]
     public async Task<IActionResult> ExternalCallback(string? returnUrl = null) {
+        
         if (User.Identity is { IsAuthenticated: true }) await signInManager.SignOutAsync();
-
         ExternalLoginInfo? info;
         try {
             info = await signInManager.GetExternalLoginInfoAsync();
         }
         catch (Exception e) {
-            //_logger.LogError(e, "Error getting external login info");
             return StatusCode(500);
         }
-        
         if (info == null) {
-            //_logger.LogInformation("Info is null");
             return BadRequest("Login info is null");
         }
-
         var providerKey = info.ProviderKey;
+        Debug.WriteLine($"Provider Key: {providerKey}");
         if (info.LoginProvider == "bosch") {
             providerKey = info.Principal.FindFirst(ClaimConstants.ObjectId)?.Value;
         }
@@ -89,13 +86,14 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
         }
         
         var claims = info.Principal.Claims.ToList();
-
-        // Create a new user.
+        
         var user = new User {
             Email = email,
             UserName = claims.SingleOrDefault(x => x.Type == ClaimConstants.Name)?.Value ?? email,
             BirthDate = DateOnly.FromDateTime(DateTime.UtcNow)
         };
+        
+        Debug.WriteLine($"Trying to create Oauth2 user: {email}");
 
         var createResult = await userManager.CreateAsync(user);
         if (!createResult.Succeeded) {

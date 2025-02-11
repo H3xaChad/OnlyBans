@@ -38,20 +38,20 @@ public static class AuthenticationExtensions {
         var provider = GetProvider(config);
         Console.WriteLine($"Provider: {provider.Name} with Secret: {provider.ClientSecret}");
 
-        services.AddAuthentication()
-            // .AddCookie(IdentityConstants.ApplicationScheme, opt => {
-            //     opt.Cookie.Name = "Manager.Auth";
-            //     opt.Cookie.IsEssential = true;
-            //     opt.ExpireTimeSpan = TimeSpan.FromHours(8);
-            //     opt.Events.OnRedirectToLogin = context => {
-            //         context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            //         return Task.CompletedTask;
-            //     };
-            //     opt.Events.OnRedirectToAccessDenied = context => {
-            //         context.Response.StatusCode = StatusCodes.Status403Forbidden;
-            //         return Task.CompletedTask;
-            //     };
-            // })
+        services.AddAuthentication(IdentityConstants.ApplicationScheme) // IdentityConstants.ApplicationScheme
+            .AddCookie(IdentityConstants.ApplicationScheme, opt => {
+                opt.Cookie.Name = "Manager.Auth";
+                opt.Cookie.IsEssential = true;
+                opt.ExpireTimeSpan = TimeSpan.FromHours(8);
+                opt.Events.OnRedirectToLogin = context => {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
+                };
+                opt.Events.OnRedirectToAccessDenied = context => {
+                    context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    return Task.CompletedTask;
+                };
+            })
             .AddOpenIdConnect("bosch", provider.Name, opt => {
                 opt.ClientId = provider.ClientId;
                 opt.ClientSecret = provider.ClientSecret;
@@ -65,10 +65,10 @@ public static class AuthenticationExtensions {
                              .Select(s => s.Trim())) {
                     opt.Scope.Add(scope);
                 }
+            })
+            .AddCookie(IdentityConstants.ExternalScheme, opt => {
+                opt.Cookie.Name = "Manager.External";
             });
-            // .AddCookie(IdentityConstants.ExternalScheme, opt => {
-            //     opt.Cookie.Name = "Manager.External";
-            // });
         return services;
     }
 }

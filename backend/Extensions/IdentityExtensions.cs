@@ -9,7 +9,7 @@ public static class IdentityExtensions {
     
     public static IServiceCollection AddApplicationIdentity(this IServiceCollection services) {
         
-        services.AddIdentity<User, IdentityRole<Guid>>(options => {
+        services.AddIdentityCore<User>(options => {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters = "@abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-.";
