@@ -41,15 +41,28 @@ public class RuleController(AppDbContext context, UserManager<User> userManager)
         return Ok(new RuleGetDto(rule));
     }
     
+    [Authorize]
     [HttpGet("titleRules")]
-    public async Task<ActionResult<IEnumerable<RuleGetDto>>> GetTitleRules()
+    public async Task<ActionResult<IEnumerable<string>>> GetTitleRulesText()
     {
-        var titleRules = await context.Rules
+        var titleRulesText = await context.Rules
             .Where(r => r.RuleCategory == RuleEnum.titleRule)
-            .Select(r => new RuleGetDto(r))
+            .Select(r => r.Text)
             .ToListAsync();
 
-        return Ok(titleRules);
+        return Ok(titleRulesText);
+    }
+    
+    [Authorize]
+    [HttpGet("contentRules")]
+    public async Task<ActionResult<IEnumerable<string>>> GetContentRulesText()
+    {
+        var contentRulesText = await context.Rules
+            .Where(r => r.RuleCategory == RuleEnum.contentRule)
+            .Select(r => r.Text)
+            .ToListAsync();
+
+        return Ok(contentRulesText);
     }
     
     [Authorize]
@@ -69,4 +82,16 @@ public class RuleController(AppDbContext context, UserManager<User> userManager)
         return CreatedAtAction(nameof(GetRule), new { id = rule.Id }, rule);
     }
 
+    [Authorize]
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteRule(Guid id) {
+        var rule = await context.Rules.FindAsync(id);
+        if (rule == null)
+            return NotFound();
+
+        context.Rules.Remove(rule);
+        await context.SaveChangesAsync();
+
+        return NoContent();
+    }
 }
