@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using OnlyBans.Backend.Models.Rules;
 using OnlyBans.Backend.Models.Users;
 
 namespace OnlyBans.Backend.Models.Rules;
 
-public class Rule {
-    
+public class RuleCreateDto {
     [Key]
     public Guid Id { get; init; }
     
@@ -16,8 +16,14 @@ public class Rule {
     [ForeignKey(nameof(User))]
     
     public Guid UserId { get; init; }
-    
+
     public User User { get; init; } = null!;
     
-    public DateTime CreatedAt { get; init; } = DateTime.Now;
+    public Rule ToRule(Guid userId) {
+        return new Rule {
+            Text = Text,
+            RuleCategory = RuleCategory,
+            UserId = userId,
+        };
+    }
 }
