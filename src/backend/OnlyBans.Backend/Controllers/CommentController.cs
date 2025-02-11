@@ -11,7 +11,7 @@ namespace OnlyBans.Backend.Controllers;
 [ApiController]
 public class CommentController(AppDbContext context) : ControllerBase {
     
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:guid}", Name = "getComment")]
     public async Task<ActionResult<CommentGetDto>> GetComment(Guid id) {
         var comment = await context.Comments.FindAsync(id);
         if (comment == null)

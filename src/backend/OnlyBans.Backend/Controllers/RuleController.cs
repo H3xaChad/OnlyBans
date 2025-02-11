@@ -13,13 +13,13 @@ namespace OnlyBans.Backend.Controllers;
 [ApiController]
 public class RuleController(AppDbContext context) : ControllerBase {
     
-    [HttpGet]
+    [HttpGet(Name = "getRules")]
     public async Task<ActionResult<IEnumerable<Rule>>> GetRules() {
         var rules = await context.Rules.ToListAsync();
         return Ok(rules);
     }
 
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:guid}", Name = "getRule")]
     public async Task<ActionResult<Rule>> GetRule(Guid id)
     {
         var rule = await context.Rules.FindAsync(id);

@@ -14,28 +14,28 @@ public class UserController(AppDbContext context, UserManager<User> userManager)
     
     private const string UserAvatarPath = "Uploads/Avatars";
     
-    [HttpGet("me")]
     [Authorize]
+    [HttpGet("me", Name = "me")]
     public async Task<IActionResult> GetCurrentUser() {
         var user = await userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
         return Ok(new UserGetDto(user));
     }
     
-    [HttpGet]
+    [HttpGet(Name = "getUsers")]
     public async Task<ActionResult<IEnumerable<UserGetDto>>> GetUsers() {
         var users = await context.Users.ToListAsync();
         return Ok(users.Select(user => new UserGetDto(user)));
     }
     
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:guid}", Name = "getUser")]
     public async Task<ActionResult<UserGetDto>> GetUser(Guid id) {
         var user = await context.Users.FindAsync(id);
         if (user == null) return NotFound();
         return Ok(new UserGetDto(user));
     }
     
-    [HttpGet("{id:guid}/avatar")]
+    [HttpGet("{id:guid}/avatar", Name = "getAvatar")]
     public async Task<ActionResult<UserGetDto>> GetUserAvatar(Guid id) {
         var user = await context.Users.FindAsync(id);
         if (user == null) return NotFound();

@@ -8,8 +8,8 @@ using OnlyBans.Backend.Models.Posts;
 namespace OnlyBans.Backend.Models.Users;
 
 public class User : IdentityUser<Guid> {
-    
-    public required UserState State { get; init; }
+
+    public UserState State { get; init; } = UserState.Free;
     
     public required DateOnly BirthDate { get; init; }
 

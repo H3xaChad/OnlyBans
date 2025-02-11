@@ -14,13 +14,13 @@ namespace OnlyBans.Backend.Controllers;
 [ApiController]
 public class PostController(AppDbContext context, UserManager<User> userManager) : ControllerBase {
     
-    [HttpGet]
+    [HttpGet(Name = "getPosts")]
     public async Task<ActionResult<IEnumerable<UserGetDto>>> GetPosts() {
         var posts = await context.Posts.ToListAsync();
         return Ok(posts.Select(post => new PostGetDto(post)));
     }
     
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:guid}", Name = "getPost")]
     public async Task<ActionResult<UserGetDto>> GetPost(Guid id) {
         var post = await context.Posts.FindAsync(id);
         if (post == null)
@@ -30,7 +30,7 @@ public class PostController(AppDbContext context, UserManager<User> userManager)
     }
     
     [Authorize]
-    [HttpPost]
+    [HttpPost(Name = "createPost")]
     public async Task<ActionResult<UserGetDto>> CreatePost(PostCreateDto postDto) {
         if (!ModelState.IsValid) return BadRequest(ModelState);
         var user = await userManager.GetUserAsync(User);
@@ -41,7 +41,8 @@ public class PostController(AppDbContext context, UserManager<User> userManager)
         return CreatedAtAction(nameof(GetPost), new { id = post.Id }, post);
     }
     
-    [HttpPost("{id:guid}/like")]
+    [Authorize]
+    [HttpPost("{id:guid}/like", Name = "likePost")]
     public async Task<IActionResult> LikePost(Guid id) {
         var user = await userManager.GetUserAsync(User);
         if (user == null) return Unauthorized("Please log in to create a post");

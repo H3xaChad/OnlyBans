@@ -346,10 +346,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags Auth
-		 * @name UnknownMethod
+		 * @name LoginOauth2
 		 * @request GET:/api/v1/auth/login/{providerName}
 		 */
-		unknownMethod: (
+		loginOauth2: (
 			providerName: string,
 			query?: {
 				returnUrl?: string;
@@ -367,12 +367,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags Auth
-		 * @name UnknownMethod2
+		 * @name Logout
 		 * @request POST:/api/v1/auth/logout
-		 * @originalName unknownMethod
-		 * @duplicate
 		 */
-		unknownMethod2: (params: RequestParams = {}) =>
+		logout: (params: RequestParams = {}) =>
 			this.request<void, any>({
 				path: `/api/v1/auth/logout`,
 				method: 'POST',
@@ -384,10 +382,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags Comment
-		 * @name UnknownMethod
+		 * @name GetComment
 		 * @request GET:/api/v1/comment/{id}
 		 */
-		unknownMethod: (id: string, params: RequestParams = {}) =>
+		getComment: (id: string, params: RequestParams = {}) =>
 			this.request<CommentGetDto, any>({
 				path: `/api/v1/comment/${id}`,
 				method: 'GET',
@@ -400,10 +398,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags Post
-		 * @name UnknownMethod
+		 * @name GetPosts
 		 * @request GET:/api/v1/post
 		 */
-		unknownMethod: (params: RequestParams = {}) =>
+		getPosts: (params: RequestParams = {}) =>
 			this.request<UserGetDto[], any>({
 				path: `/api/v1/post`,
 				method: 'GET',
@@ -415,12 +413,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags Post
-		 * @name UnknownMethod2
+		 * @name CreatePost
 		 * @request POST:/api/v1/post
-		 * @originalName unknownMethod
-		 * @duplicate
 		 */
-		unknownMethod2: (data: PostCreateDto, params: RequestParams = {}) =>
+		createPost: (data: PostCreateDto, params: RequestParams = {}) =>
 			this.request<UserGetDto, any>({
 				path: `/api/v1/post`,
 				method: 'POST',
@@ -434,12 +430,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags Post
-		 * @name UnknownMethod3
+		 * @name GetPost
 		 * @request GET:/api/v1/post/{id}
-		 * @originalName unknownMethod
-		 * @duplicate
 		 */
-		unknownMethod3: (id: string, params: RequestParams = {}) =>
+		getPost: (id: string, params: RequestParams = {}) =>
 			this.request<UserGetDto, any>({
 				path: `/api/v1/post/${id}`,
 				method: 'GET',
@@ -451,12 +445,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags Post
-		 * @name UnknownMethod4
+		 * @name LikePost
 		 * @request POST:/api/v1/post/{id}/like
-		 * @originalName unknownMethod
-		 * @duplicate
 		 */
-		unknownMethod4: (id: string, params: RequestParams = {}) =>
+		likePost: (id: string, params: RequestParams = {}) =>
 			this.request<void, any>({
 				path: `/api/v1/post/${id}/like`,
 				method: 'POST',
@@ -468,10 +460,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags Rule
-		 * @name UnknownMethod
+		 * @name GetRules
 		 * @request GET:/api/v1/rule
 		 */
-		unknownMethod: (params: RequestParams = {}) =>
+		getRules: (params: RequestParams = {}) =>
 			this.request<Rule[], any>({
 				path: `/api/v1/rule`,
 				method: 'GET',
@@ -483,12 +475,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags Rule
-		 * @name UnknownMethod2
+		 * @name GetRule
 		 * @request GET:/api/v1/rule/{id}
-		 * @originalName unknownMethod
-		 * @duplicate
 		 */
-		unknownMethod2: (id: string, params: RequestParams = {}) =>
+		getRule: (id: string, params: RequestParams = {}) =>
 			this.request<Rule, any>({
 				path: `/api/v1/rule/${id}`,
 				method: 'GET',
@@ -501,10 +491,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags User
-		 * @name UnknownMethod
+		 * @name Me
 		 * @request GET:/api/v1/user/me
 		 */
-		unknownMethod: (params: RequestParams = {}) =>
+		me: (params: RequestParams = {}) =>
 			this.request<void, any>({
 				path: `/api/v1/user/me`,
 				method: 'GET',
@@ -515,12 +505,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags User
-		 * @name UnknownMethod2
+		 * @name GetUsers
 		 * @request GET:/api/v1/user
-		 * @originalName unknownMethod
-		 * @duplicate
 		 */
-		unknownMethod2: (params: RequestParams = {}) =>
+		getUsers: (params: RequestParams = {}) =>
 			this.request<UserGetDto[], any>({
 				path: `/api/v1/user`,
 				method: 'GET',
@@ -532,12 +520,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags User
-		 * @name UnknownMethod3
+		 * @name GetUser
 		 * @request GET:/api/v1/user/{id}
-		 * @originalName unknownMethod
-		 * @duplicate
 		 */
-		unknownMethod3: (id: string, params: RequestParams = {}) =>
+		getUser: (id: string, params: RequestParams = {}) =>
 			this.request<UserGetDto, any>({
 				path: `/api/v1/user/${id}`,
 				method: 'GET',
@@ -549,12 +535,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags User
-		 * @name UnknownMethod4
+		 * @name GetAvatar
 		 * @request GET:/api/v1/user/{id}/avatar
-		 * @originalName unknownMethod
-		 * @duplicate
 		 */
-		unknownMethod4: (id: string, params: RequestParams = {}) =>
+		getAvatar: (id: string, params: RequestParams = {}) =>
 			this.request<UserGetDto, any>({
 				path: `/api/v1/user/${id}/avatar`,
 				method: 'GET',
