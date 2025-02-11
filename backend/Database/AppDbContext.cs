@@ -20,7 +20,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<Rule> Rules { get; init; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
-        modelBuilder.HasPostgresExtension("uuid-ossp");
+        modelBuilder.HasPostgresExtension("uuid-ossp"); // Guid support in postgres
         
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)

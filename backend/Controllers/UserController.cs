@@ -14,11 +14,10 @@ public class UserController(AppDbContext context, UserManager<User> userManager)
     
     private const string UserAvatarPath = "Uploads/Avatars";
     
-    [Authorize]
     [HttpGet("me", Name = "me")]
     public async Task<ActionResult<UserGetDto>> GetCurrentUser() {
         var user = await userManager.GetUserAsync(User);
-        if (user == null) return Unauthorized();
+        if (user == null) return Unauthorized("You need to login for this operation.");
         return Ok(new UserGetDto(user));
     }
     
