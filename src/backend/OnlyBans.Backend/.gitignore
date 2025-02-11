@@ -16,37 +16,20 @@
 launchSettings.json
 
 # Ignore user-specific Rider settings
-<<<<<<< HEAD
-../.idea/
-../.idea/**/workspace.xml
-../.idea/**/tasks.xml
-../.idea/**/shelf/
-../.idea/**/dataSources/
-../.idea/**/dataSources.ids
-../.idea/**/dataSources.local.xml
-../.idea/**/sqlDataSources.xml
-../.idea/**/dynamic.xml
-../.idea/**/uiDesigner.xml
-../.idea/**/gradle.xml
-../.idea/**/misc.xml
-../.idea/**/modules.xml
-../.idea/**/riderModuleCache/
-=======
 **/.idea/
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/shelf/
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/**/gradle.xml
-.idea/**/misc.xml
-.idea/**/modules.xml
-.idea/**/riderModuleCache/
->>>>>>> 6da6d0a17f31438f18635bb4f3e2fff9489ac409
+**/.idea/**/workspace.xml
+**/.idea/**/tasks.xml
+**/.idea/**/shelf/
+**/.idea/**/dataSources/
+**/.idea/**/dataSources.ids
+**/.idea/**/dataSources.local.xml
+**/.idea/**/sqlDataSources.xml
+**/.idea/**/dynamic.xml
+**/.idea/**/uiDesigner.xml
+**/.idea/**/gradle.xml
+**/.idea/**/misc.xml
+**/.idea/**/modules.xml
+**/.idea/**/riderModuleCache/
 
 # Ignore ReSharper settings
 *.suo
