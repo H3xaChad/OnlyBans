@@ -16,7 +16,7 @@ public class UserController(AppDbContext context, UserManager<User> userManager)
     
     [Authorize]
     [HttpGet("me", Name = "me")]
-    public async Task<IActionResult> GetCurrentUser() {
+    public async Task<ActionResult<UserGetDto>> GetCurrentUser() {
         var user = await userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
         return Ok(new UserGetDto(user));

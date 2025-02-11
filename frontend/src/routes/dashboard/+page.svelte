@@ -13,20 +13,16 @@
 			return;
 		}
         
-        // let user = await api.user.me().then(r => r.data)
-
-		const res = await fetch('http://localhost:5107/api/v1/user/me', {
-			credentials: 'include'
-		});
-
-		if (res.ok) {
-			user = await res.json()
-            console.log(`Got user: ${user}`)
-		} else {
-			alert('Failed to fetch user data')
-			localStorage.removeItem('auth_token')
-			window.location.href = '/login'
-		}
+        try {
+        const user = await api.user.me({ credentials: 'include' });
+            if (!user) throw new Error('Invalid response'); 
+            console.log(`Got user:`, user)
+        } catch (error) {
+            console.error('Failed to fetch user data:', error);
+            alert('Failed to fetch user data');
+            localStorage.removeItem('auth_token');
+            window.location.href = '/login';
+        }
 	});
 </script>
 
