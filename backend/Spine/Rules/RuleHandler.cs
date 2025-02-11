@@ -1,4 +1,5 @@
 ﻿using OnlyBans.Backend.Database;
+using OnlyBans.Backend.Models.Posts;
 using OnlyBans.Backend.Spine.AI;
 using OpenAI;
 
@@ -28,12 +29,18 @@ public class RuleHandler
 
     private List<string> getContentRules()
     {
-        throw new NotImplementedException();
+        return _context.Rules
+            .Where(r => r.RuleCategory == RuleEnum.contentRule)
+            .Select(r => r.Text)
+            .ToList();
     }
 
     private List<string> getTitleRules()
     {
-        throw new NotImplementedException();
+        return _context.Rules
+            .Where(r => r.RuleCategory == RuleEnum.titleRule)
+            .Select(r => r.Text)
+            .ToList();
     }
 
 
