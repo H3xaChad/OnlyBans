@@ -7,6 +7,7 @@ using OnlyBans.Backend.Database;
 using OnlyBans.Backend.Models;
 using OnlyBans.Backend.Models.Posts;
 using OnlyBans.Backend.Models.Users;
+using OnlyBans.Backend.Spine.Validation;
 
 namespace OnlyBans.Backend.Controllers;
 
@@ -36,6 +37,8 @@ public class PostController(AppDbContext context, UserManager<User> userManager)
         var user = await userManager.GetUserAsync(User);
         if (user == null) return Unauthorized("Please log in to create a post");
         var post = postDto.ToPost(user.Id);
+        var vh = new ValidationHandler(context);
+        if (!vh.validateContent(post)) return BadRequest("Post content is not valid");
         context.Posts.Add(post);
         await context.SaveChangesAsync();
         return CreatedAtAction(nameof(GetPost), new { id = post.Id }, post);
@@ -68,5 +71,4 @@ public class PostController(AppDbContext context, UserManager<User> userManager)
         await context.SaveChangesAsync();
         return Ok(new { message = "Post liked successfully" });
     }
-
 }

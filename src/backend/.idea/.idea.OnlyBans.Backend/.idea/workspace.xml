@@ -9,17 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="713cb93f-f2fb-4c64-b9ef-8b5b51a95a8a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OnlyBans.Backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/AuthenticationExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OnlyBans.Backend/Extensions/AuthenticationExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lib/api/Api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lib/api/Api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lib/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lib/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/routes/dashboard/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/routes/dashboard/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/routes/login/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/routes/login/+page.svelte" afterDir="false" />
-    </list>
+    <list default="true" id="713cb93f-f2fb-4c64-b9ef-8b5b51a95a8a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -150,7 +140,7 @@
       <workItem from="1738873136722" duration="2406000" />
       <workItem from="1738911731614" duration="5948000" />
       <workItem from="1739171843511" duration="5229000" />
-      <workItem from="1739257198227" duration="8085000" />
+      <workItem from="1739257198227" duration="8609000" />
     </task>
     <servers />
   </component>

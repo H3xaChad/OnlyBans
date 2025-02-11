@@ -1,5 +1,6 @@
 using Microsoft.OpenApi.Models;
 using OnlyBans.Backend.Extensions;
+using OnlyBans.Backend.Spine.Rules;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ builder.Services.AddOAuth2Authentication(builder.Configuration);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<RuleHandler>();
 builder.Services.AddSwaggerGen(opt => {
     opt.SwaggerDoc("v1",
         new OpenApiInfo {

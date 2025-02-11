@@ -13,7 +13,7 @@ public class PostCreateDto {
     [Required]
     [MaxLength(1600)]
     public required string Text { get; init; }
-
+    
     public Post ToPost(Guid userId) {
         return new Post {
             Title = Title,
