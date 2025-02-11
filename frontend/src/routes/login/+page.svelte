@@ -1,10 +1,8 @@
 <script lang="ts">
 
 	import { goto } from '$app/navigation'
-	import { Api } from '$lib/api/Api'
     import type { LoginDto } from '$lib/api/Api'
-
-    const api = new Api()
+	import { api } from '$lib/api/ApiService';
 
 	let email = ''
 	let password = ''
