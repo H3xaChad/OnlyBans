@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Http.HttpResults;
 using OnlyBans.Backend.Database;
 using OnlyBans.Backend.Models.Posts;
 using OnlyBans.Backend.Models.Users;
@@ -6,14 +7,15 @@ using OnlyBans.Backend.Spine.Rules;
 
 namespace OnlyBans.Backend.Spine.Validation
 {
-    public class ValidationHandler
-    {
+    public class ValidationHandler {
+        
+        private AppDbContext context;
         private int handlerID;
         private Post _post;
         private bool shadwoBan;
         public RuleHandler rh;
-        public ValidationHandler(AppDbContext context)
-        {
+        public ValidationHandler(AppDbContext context) {
+            this.context = context;
             handlerID = HandlerTracker.lValidationHandlers.Count;
             //_post = post;
             HandlerTracker.lValidationHandlers.Add(this);
@@ -33,6 +35,7 @@ namespace OnlyBans.Backend.Spine.Validation
 
         public bool validateContent(Post content)
         {
+            Debug.WriteLine($"post: {content.UserId}");
             /*try
             {*/
             /*if (checkUserState(content.User.State))
@@ -54,9 +57,8 @@ namespace OnlyBans.Backend.Spine.Validation
             if (content == null)
                 throw new ArgumentNullException(nameof(content));
 
-            if (content.User == null)
-                throw new ArgumentNullException(nameof(content.User));
-
+            var user = context.Users.Find(_post.UserId);
+            
             
             Guid userID = content.UserId;
             string username = content.User.UserName;
