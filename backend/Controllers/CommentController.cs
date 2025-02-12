@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlyBans.Backend.Database;
@@ -11,6 +12,7 @@ namespace OnlyBans.Backend.Controllers;
 [ApiController]
 public class CommentController(AppDbContext context) : ControllerBase {
     
+    [Authorize]
     [HttpGet("{id:guid}", Name = "getComment")]
     public async Task<ActionResult<CommentGetDto>> GetComment(Guid id) {
         var comment = await context.Comments.FindAsync(id);
@@ -19,11 +21,5 @@ public class CommentController(AppDbContext context) : ControllerBase {
         
         return Ok(new CommentGetDto(comment));
     }
-    
-    // [HttpGet("/by-post/{id:guid}")]
-    // public async Task<ActionResult<IEnumerable<CommentGetDto>>> GetComments(Guid id) {
-    //     var comment = await context.Comments.FindAsync();
-    //     return Ok(posts.Select(post => new PostGetDto(post)));
-    // }
     
 }

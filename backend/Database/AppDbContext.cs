@@ -15,7 +15,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<Post> Posts { get; init; }
     public DbSet<Comment> Comments { get; init; }
     public DbSet<UserPostLike> UserPostLikes { get; init; }
-    
     public DbSet<UserFollow> UserFollows { get; init; }
     public DbSet<Rule> Rules { get; init; }
 
@@ -25,6 +24,18 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
             .IsUnique();
+        
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.Post)
+            .WithMany(p => p.Comments)
+            .HasForeignKey(c => c.PostId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.User)
+            .WithMany()
+            .HasForeignKey(c => c.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<UserPostLike>()
             .HasKey(x => new { x.UserId, x.PostId });

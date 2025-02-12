@@ -9,6 +9,11 @@ public class UserCreateDto {
     [MinLength(1)]
     [MaxLength(42)]
     public required string UserName { get; init; }
+    
+    [Required]
+    [MinLength(1)]
+    [MaxLength(42)]
+    public required string DisplayName { get; init; }
 
     [Required]
     [DefaultValue("user@example.com")]
@@ -30,6 +35,7 @@ public class UserCreateDto {
     public User ToUser() {
         return new User {
             UserName = UserName,
+            DisplayName = DisplayName,
             Email = Email,
             PhoneNumber = PhoneNumber,
             BirthDate = BirthDate,

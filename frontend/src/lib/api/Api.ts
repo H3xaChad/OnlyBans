@@ -81,10 +81,32 @@ export interface Rule {
 	/** @format uuid */
 	id?: string;
 	text?: string | null;
-	ruleCategory?: string | null;
+	ruleCategory?: RuleEnum;
 	/** @format uuid */
 	userId?: string;
 	user?: User;
+	/** @format date-time */
+	createdAt?: string;
+}
+
+export interface RuleCreateDto {
+	text?: string | null;
+	ruleCategory?: RuleEnum;
+}
+
+/** @format int32 */
+export enum RuleEnum {
+	Value0 = 0,
+	Value1 = 1
+}
+
+export interface RuleGetDto {
+	/** @format uuid */
+	id?: string;
+	text?: string | null;
+	ruleCategory?: RuleEnum;
+	/** @format uuid */
+	userId?: string;
 	/** @format date-time */
 	createdAt?: string;
 }
@@ -108,6 +130,7 @@ export interface User {
 	lockoutEnabled?: boolean;
 	/** @format int32 */
 	accessFailedCount?: number;
+	displayName?: string | null;
 	state?: UserState;
 	/** @format date */
 	birthDate: string;
@@ -125,6 +148,11 @@ export interface UserCreateDto {
 	 * @maxLength 42
 	 */
 	userName: string;
+	/**
+	 * @minLength 1
+	 * @maxLength 42
+	 */
+	displayName: string;
 	/**
 	 * @minLength 1
 	 * @default "user@example.com"
@@ -145,6 +173,7 @@ export interface UserCreateDto {
 export interface UserGetDto {
 	/** @format uuid */
 	id?: string;
+	displayName?: string | null;
 	userName?: string | null;
 	email?: string | null;
 }
@@ -571,7 +600,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * @request GET:/api/v1/rule
 		 */
 		getRules: (params: RequestParams = {}) =>
-			this.request<Rule[], any>({
+			this.request<RuleGetDto[], any>({
 				path: `/api/v1/rule`,
 				method: 'GET',
 				format: 'json',
@@ -585,7 +614,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * @name V1RuleCreate
 		 * @request POST:/api/v1/rule
 		 */
-		v1RuleCreate: (data: Rule, params: RequestParams = {}) =>
+		v1RuleCreate: (data: RuleCreateDto, params: RequestParams = {}) =>
 			this.request<Rule, any>({
 				path: `/api/v1/rule`,
 				method: 'POST',
@@ -603,10 +632,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * @request GET:/api/v1/rule/{id}
 		 */
 		getRule: (id: string, params: RequestParams = {}) =>
-			this.request<Rule, any>({
+			this.request<RuleGetDto, any>({
 				path: `/api/v1/rule/${id}`,
 				method: 'GET',
 				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Rule
+		 * @name V1RuleDelete
+		 * @request DELETE:/api/v1/rule/{id}
+		 */
+		v1RuleDelete: (id: string, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/api/v1/rule/${id}`,
+				method: 'DELETE',
 				...params
 			}),
 
@@ -620,6 +663,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		v1RuleTitlerulesList: (params: RequestParams = {}) =>
 			this.request<string[], any>({
 				path: `/api/v1/rule/titlerules`,
+				method: 'GET',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Rule
+		 * @name V1RuleContentrulesList
+		 * @request GET:/api/v1/rule/contentrules
+		 */
+		v1RuleContentrulesList: (params: RequestParams = {}) =>
+			this.request<string[], any>({
+				path: `/api/v1/rule/contentrules`,
 				method: 'GET',
 				format: 'json',
 				...params

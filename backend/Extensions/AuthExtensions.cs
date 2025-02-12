@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using OnlyBans.Backend.Config;
 
 namespace OnlyBans.Backend.Extensions;
-public static class AuthenticationExtensions {
+public static class AuthExtensions {
 
     private const string PreferredProvider = "Bosch";
 
@@ -36,7 +36,7 @@ public static class AuthenticationExtensions {
     public static IServiceCollection AddOAuth2Authentication(this IServiceCollection services, IConfiguration config) {
 
         var provider = GetProvider(config);
-        Console.WriteLine($"Provider: {provider.Name} with Secret: {provider.ClientSecret}");
+        //Console.WriteLine($"Provider: {provider.Name} with Secret: {provider.ClientSecret}");
 
         services.AddAuthentication(IdentityConstants.ApplicationScheme) // IdentityConstants.ApplicationScheme
             .AddCookie(IdentityConstants.ApplicationScheme, opt => {
@@ -60,6 +60,7 @@ public static class AuthenticationExtensions {
                 opt.AuthenticationMethod = OpenIdConnectRedirectBehavior.RedirectGet;
                 opt.SignInScheme = IdentityConstants.ExternalScheme;
                 opt.CallbackPath = $"/api/v1/login/{provider.Name}";
+                opt.SaveTokens = true;
                 foreach (var scope in provider.Scopes
                              .Split(',', StringSplitOptions.RemoveEmptyEntries)
                              .Select(s => s.Trim())) {

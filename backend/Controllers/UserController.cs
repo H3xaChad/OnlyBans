@@ -5,14 +5,16 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using OnlyBans.Backend.Database;
 using OnlyBans.Backend.Models.Users;
+using OnlyBans.Backend.Services;
 
 namespace OnlyBans.Backend.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]
-public class UserController(AppDbContext context, UserManager<User> userManager) : ControllerBase {
-    
-    private const string UserAvatarPath = "Uploads/Avatars";
+public class UserController(
+    AppDbContext context,
+    UserManager<User> userManager,
+    IImageService imageService) : ControllerBase {
     
     [HttpGet("me", Name = "me")]
     public async Task<ActionResult<UserGetDto>> GetCurrentUser() {
@@ -21,52 +23,31 @@ public class UserController(AppDbContext context, UserManager<User> userManager)
         return Ok(new UserGetDto(user));
     }
     
-    [HttpGet(Name = "getUsers")]
+    [HttpGet(Name = "getAll")]
     public async Task<ActionResult<IEnumerable<UserGetDto>>> GetUsers() {
         var users = await context.Users.ToListAsync();
         return Ok(users.Select(user => new UserGetDto(user)));
     }
     
-    [HttpGet("{id:guid}", Name = "getUser")]
+    [HttpGet("{id:guid}", Name = "get")]
     public async Task<ActionResult<UserGetDto>> GetUser(Guid id) {
         var user = await context.Users.FindAsync(id);
         if (user == null) return NotFound();
         return Ok(new UserGetDto(user));
     }
     
-    [HttpGet("{id:guid}/avatar", Name = "getAvatar")]
-    public async Task<ActionResult<UserGetDto>> GetUserAvatar(Guid id) {
-        var user = await context.Users.FindAsync(id);
-        if (user == null) return NotFound();
-            
-        var imagePath = Path.Combine(UserAvatarPath, user.Id.ToString());
-        if (!System.IO.File.Exists(imagePath)) return NotFound();
-        
-        var provider = new FileExtensionContentTypeProvider();
-        if (!provider.TryGetContentType(imagePath, out var contentType)) {
-            contentType = "application/octet-stream";
-        }
-        
-        var image = System.IO.File.OpenRead(imagePath);
-        return File(image, contentType);
+    [Authorize]
+    [HttpGet("avatar", Name = "getMyAvatar")]
+    public async Task<IActionResult> GetMyAvatar() {
+        var user = await userManager.GetUserAsync(User);
+        if (user == null) return NotFound("You need to login for this operation.");
+        return await imageService.GetAvatarAsync(user);
     }
     
-    // [HttpGet("{id:guid}/followers")]
-    // public async Task<ActionResult<UserGetDto>> GetUserAvatar(Guid id) {
-    //     var user = await context.Users.FindAsync(id);
-    //     if (user == null)
-    //         return NotFound();
-    //         
-    //     var imagePath = Path.Combine(UserAvatarPath, user.Id.ToString());
-    //     if (!System.IO.File.Exists(imagePath))
-    //         return NotFound();
-    //     
-    //     var provider = new FileExtensionContentTypeProvider();
-    //     if (!provider.TryGetContentType(imagePath, out var contentType)) {
-    //         contentType = "application/octet-stream";
-    //     }
-    //         
-    //     var image = System.IO.File.OpenRead(imagePath);
-    //     return File(image, contentType);
-    // }
+    [HttpGet("{id:guid}/avatar", Name = "getAvatar")]
+    public async Task<IActionResult> GetUserAvatar(Guid id) {
+        var user = await context.Users.FindAsync(id);
+        if (user == null) return NotFound("User with this id does not exist.");
+        return await imageService.GetAvatarAsync(user);
+    }
 }

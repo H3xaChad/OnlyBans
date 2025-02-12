@@ -8,12 +8,14 @@ using OnlyBans.Backend.Models.Posts;
 namespace OnlyBans.Backend.Models.Users;
 
 public class User : IdentityUser<Guid> {
+    
+    public string DisplayName { get; init; }
 
     public UserState State { get; init; } = UserState.Free;
     
     public required DateOnly BirthDate { get; init; }
 
-    public ImageType? ImageType { get; init; }
+    public ImageType ImageType { get; init; } = ImageType.None;
 
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
     

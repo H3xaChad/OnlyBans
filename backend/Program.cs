@@ -1,5 +1,6 @@
 using Microsoft.OpenApi.Models;
 using OnlyBans.Backend.Extensions;
+using OnlyBans.Backend.Services;
 using OnlyBans.Backend.Spine.Rules;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,8 @@ builder.Configuration.AddUserSecrets<Program>();
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddApplicationIdentity();
 builder.Services.AddOAuth2Authentication(builder.Configuration);
+builder.Services.AddHttpClient<IImageService, ImageService>();
+builder.Services.AddScoped<CommentService>();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();

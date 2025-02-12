@@ -1,6 +1,6 @@
 namespace OnlyBans.Backend.Extensions;
 
-public static class ApplicationBuilderExtensions {
+public static class AppBuilderExtensions {
     public static void ConfigureMiddleware(this WebApplication app) {
         if (app.Environment.IsDevelopment()) {
             app.UseSwagger(c => c.RouteTemplate = "api/swagger/{documentName}/swagger.json");

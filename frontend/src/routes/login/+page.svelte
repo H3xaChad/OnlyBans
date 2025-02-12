@@ -1,8 +1,7 @@
 <script lang="ts">
-
     import { goto } from '$app/navigation'
     import type { LoginDto } from '$lib/api/Api'
-    import { api } from '$lib/api/ApiService';
+    import { api, apiLoginUrl } from '$lib/api/ApiService'
 
     let email = ''
     let password = ''
@@ -13,41 +12,47 @@
         try {
             const user = await api.auth.login(loginDto).then(r => r.json())
             localStorage.setItem('auth_token', user.token)
-            goto('/dashboard')
+            goto('/feed') // Redirect to feed on success
         } catch (error) {
             console.error('Login failed:', error)
             alert('Login failed')
         }
     }
 
-    function handleOAuth() {
-        window.location.href = 'http://localhost:5107/api/v1/auth/login/bosch'
+    function handleOAuth(provider: string) {
+        const returnUrl = encodeURIComponent(`${window.location.origin}/feed`)
+        const authUrl = `${apiLoginUrl}/${provider}?returnUrl=${returnUrl}`
+        window.location.href = authUrl
     }
 </script>
 
-
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-300 to-blue-500">
-    <div class="bg-white bg-opacity-95 p-8 rounded-xl shadow-lg w-80 slide-in">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-100 to-white">
+    <div class="bg-white p-10 rounded-2xl shadow-2xl w-96 slide-in border border-gray-200">
+        <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Login</h2>
+        
         <form on:submit={handleLogin} class="flex flex-col space-y-4">
             <input
                 type="email"
                 bind:value={email}
                 placeholder="Email"
                 required
-                class="p-2 border border-gray-300 rounded focus:border-blue-400 focus:outline-none"
+                class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none"
             >
             <input
                 type="password"
                 bind:value={password}
                 placeholder="Password"
                 required
-                class="p-2 border border-gray-300 rounded focus:border-blue-400 focus:outline-none"
+                class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none"
             >
-            <button type="submit" class="p-2 bg-blue-400 text-white font-bold rounded hover:bg-blue-500 transition cursor-pointer">
+            <button type="submit" class="cursor-pointer p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition">
                 Login
             </button>
         </form>
-        <button on:click={handleOAuth} class="mt-4 p-2 bg-red-400 text-white font-bold rounded hover:bg-red-500 transition w-full cursor-pointer">
+
+        <div class="text-center text-gray-500 my-4">or</div>
+
+        <button on:click={() => handleOAuth('bosch')} class=" cursor-pointer p-3 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-800 transition w-full">
             Login with OAuth
         </button>
     </div>
