@@ -1,39 +1,44 @@
 <script lang="ts">
 
-	import { onMount } from 'svelte'
+    import { goto } from '$app/navigation';
+    import type { UserCreateDto } from '$lib/api/Api';
     import { api } from '$lib/api/ApiService';
-    import type { UserGetDto } from '$lib/api/Api'
 
-    let user: UserGetDto | null = null
+    let userName = '';
+    let displayName = '';
+    let email = '';
+    let phoneNumber = '';
+    let birthDate = '';
+    let password = '';
 
-	onMount(async () => {
-		const token = localStorage.getItem('auth_token')
-		if (!token) {
-			window.location.href = '/login'
-			return;
-		}
-        
+    async function handleRegister(event: Event) {
+        event.preventDefault();
+        const userCreateDto: UserCreateDto = { userName, displayName, email, phoneNumber, birthDate, password };
         try {
-            user = await api.user.me().then(r => r.json());
-            if (!user) throw new Error('Invalid response');
-            console.log(`Got user:`, user)
+            await api.auth.register(userCreateDto);
+            alert('Registration successful! Please log in.');
+            goto('/login');
         } catch (error) {
-            console.error('Failed to fetch user data:', error);
-            alert('Failed to fetch user data');
-            localStorage.removeItem('auth_token');
-            // window.location.href = '/login';
+            console.error('Registration failed:', error);
+            alert('Registration failed');
         }
-	});
+    }
 </script>
 
-<h1>Dashboard</h1>
-
-{#if user}
-    <div>
-        <h2>Welcome, {user.userName}!</h2>
-        <p><strong>Email:</strong> {user.email}</p>
-        <p><strong>User ID:</strong> {user.id}</p>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-100 to-white">
+    <div class="bg-white p-10 rounded-2xl shadow-2xl w-96 slide-in border border-gray-200">
+        <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Register</h2>
+        
+        <form on:submit={handleRegister} class="flex flex-col space-y-4">
+            <input type="text" bind:value={userName} placeholder="Username" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none">
+            <input type="text" bind:value={displayName} placeholder="Display Name" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none">
+            <input type="email" bind:value={email} placeholder="Email" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none">
+            <input type="tel" bind:value={phoneNumber} placeholder="Phone Number" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none">
+            <input type="date" bind:value={birthDate} required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none">
+            <input type="password" bind:value={password} placeholder="Password" required class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none">
+            <button type="submit" class="cursor-pointer p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition">
+                Register
+            </button>
+        </form>
     </div>
-{:else}
-	<p>Loading...</p>
-{/if}
+</div>

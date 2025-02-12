@@ -2,6 +2,7 @@
     import { goto } from '$app/navigation'
     import type { LoginDto } from '$lib/api/Api'
     import { api, apiLoginUrl } from '$lib/api/ApiService'
+	import Input from '$lib/components/Input.svelte';
 
     let email = ''
     let password = ''
@@ -11,8 +12,9 @@
         const loginDto: LoginDto = { email, password }
         try {
             const user = await api.auth.login(loginDto).then(r => r.json())
+            if (!user) throw new Error('Got no user data')
             localStorage.setItem('auth_token', user.token)
-            goto('/feed') // Redirect to feed on success
+            goto('/feed')
         } catch (error) {
             console.error('Login failed:', error)
             alert('Login failed')
@@ -31,20 +33,8 @@
         <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Login</h2>
         
         <form on:submit={handleLogin} class="flex flex-col space-y-4">
-            <input
-                type="email"
-                bind:value={email}
-                placeholder="Email"
-                required
-                class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none"
-            >
-            <input
-                type="password"
-                bind:value={password}
-                placeholder="Password"
-                required
-                class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none"
-            >
+            <Input bind:value={email} type="email" placeholder="Email"/>
+            <Input bind:value={password} type="password" placeholder="Password"/>
             <button type="submit" class="cursor-pointer p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition">
                 Login
             </button>
