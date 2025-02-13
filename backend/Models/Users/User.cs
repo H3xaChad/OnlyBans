@@ -11,7 +11,7 @@ public class User : IdentityUser<Guid> {
     
     public string DisplayName { get; set; }
     public UserState State { get; set; } = UserState.Free;
-    public DateOnly BirthDate { get; set; }
+    public DateOnly BirthDate { get; init; }
     public ImageType ImageType { get; set; } = ImageType.None;
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
     public List<Post> Posts { get; init; } = [];

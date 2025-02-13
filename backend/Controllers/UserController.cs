@@ -16,24 +16,52 @@ public class UserController(
     UserManager<User> userManager,
     IImageService imageService) : ControllerBase {
     
+    [Authorize]
     [HttpGet("me", Name = "me")]
     public async Task<ActionResult<UserGetDto>> GetCurrentUser() {
         var user = await userManager.GetUserAsync(User);
         if (user == null) return Unauthorized("You need to login for this operation.");
-        return Ok(new UserGetDto(user));
+        return Ok(new UserGetDto(user, userManager));
     }
     
     [HttpGet(Name = "getAllUsers")]
     public async Task<ActionResult<IEnumerable<UserGetDto>>> GetUsers() {
         var users = await context.Users.ToListAsync();
-        return Ok(users.Select(user => new UserGetDto(user)));
+        return Ok(users.Select(user => new UserGetDto(user, userManager)));
     }
     
     [HttpGet("{id:guid}", Name = "getUser")]
     public async Task<ActionResult<UserGetDto>> GetUser(Guid id) {
         var user = await context.Users.FindAsync(id);
         if (user == null) return NotFound();
-        return Ok(new UserGetDto(user));
+        return Ok(new UserGetDto(user, userManager));
+    }
+    
+    [Authorize]
+    [HttpPatch("update", Name = "updateUser")]
+    public async Task<ActionResult<UserGetDto>> Update([FromBody] UserUpdateDto updateDto) {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+        
+        var user = await userManager.GetUserAsync(User);
+        if (user == null)
+            return Unauthorized("User not found.");
+        
+        user.UserName = updateDto.UserName;
+        user.DisplayName = updateDto.DisplayName;
+        user.Email = updateDto.Email;
+        user.PhoneNumber = updateDto.PhoneNumber;
+        
+        var token = await userManager.GeneratePasswordResetTokenAsync(user);
+        var passwordResult = await userManager.ResetPasswordAsync(user, token, updateDto.Password);
+        if (!passwordResult.Succeeded)
+            return BadRequest(passwordResult.Errors);
+        
+        var updateResult = await userManager.UpdateAsync(user);
+        if (!updateResult.Succeeded)
+            return BadRequest(updateResult.Errors);
+
+        return Ok(new UserGetDto(user, userManager));
     }
     
     [Authorize]
@@ -51,6 +79,7 @@ public class UserController(
         var user = await userManager.GetUserAsync(User);
         if (user == null)
             return NotFound("You need to login for this operation.");
+        //user.ImageType = 
         await imageService.UpdateLocalAvatarAsync(user, image);
         return Ok("Successfully updated user image");
     }

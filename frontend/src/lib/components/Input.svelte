@@ -1,10 +1,12 @@
 <script lang="ts">
-    export let type = "text";
-    export let value = "";
-    export let placeholder = "";
+    export let id = ""
+    export let type = "text"
+    export let value = ""
+    export let placeholder = ""
 </script>
 
 <input
+    id ={id}
     bind:value
     type={type}
     placeholder={placeholder}

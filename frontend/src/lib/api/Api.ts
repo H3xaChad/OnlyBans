@@ -175,6 +175,7 @@ export interface UserGetDto {
 	displayName?: string | null;
 	userName?: string | null;
 	email?: string | null;
+	isOAuthUser?: boolean;
 }
 
 export interface UserPostLike {
@@ -193,6 +194,32 @@ export enum UserState {
 	Value0 = 0,
 	Value1 = 1,
 	Value2 = 2
+}
+
+export interface UserUpdateDto {
+	/**
+	 * @minLength 1
+	 * @maxLength 42
+	 */
+	userName: string;
+	/**
+	 * @minLength 1
+	 * @maxLength 42
+	 */
+	displayName: string;
+	/**
+	 * @minLength 1
+	 * @default "user@example.com"
+	 * @pattern ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+	 */
+	email: string;
+	/**
+	 * @minLength 1
+	 * @pattern ^\+?[1-9]\d{1,14}$
+	 */
+	phoneNumber: string;
+	/** @minLength 8 */
+	password: string;
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -859,6 +886,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags User
+		 * @name UpdateUser
+		 * @request PATCH:/api/v1/user/update
+		 */
+		updateUser: (data: UserUpdateDto, params: RequestParams = {}) =>
+			this.request<UserGetDto, any>({
+				path: `/api/v1/user/update`,
+				method: 'PATCH',
+				body: data,
+				type: ContentType.Json,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags User
 		 * @name GetMyAvatar
 		 * @request GET:/api/v1/user/avatar
 		 */
@@ -866,6 +910,28 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 			this.request<void, any>({
 				path: `/api/v1/user/avatar`,
 				method: 'GET',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags User
+		 * @name UpdateMyAvatar
+		 * @request POST:/api/v1/user/avatar
+		 */
+		updateMyAvatar: (
+			data: {
+				/** @format binary */
+				image?: File;
+			},
+			params: RequestParams = {}
+		) =>
+			this.request<void, any>({
+				path: `/api/v1/user/avatar`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
 				...params
 			}),
 
