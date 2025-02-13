@@ -44,6 +44,12 @@ builder.Services.AddSwaggerGen(opt => {
     });
     opt.SchemaFilter<RegisterModelsFilter>();
 });
+builder.Services.AddCors(o => o.AddPolicy("DevCors", b => {
+    b.WithOrigins(["http://127.0.0.1:5173", "http://localhost:5173"])
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+}));
 
 var app = builder.Build();
 app.ConfigureMiddleware();
