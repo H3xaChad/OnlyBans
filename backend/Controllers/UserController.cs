@@ -23,13 +23,13 @@ public class UserController(
         return Ok(new UserGetDto(user));
     }
     
-    [HttpGet(Name = "getAll")]
+    [HttpGet(Name = "getAllUsers")]
     public async Task<ActionResult<IEnumerable<UserGetDto>>> GetUsers() {
         var users = await context.Users.ToListAsync();
         return Ok(users.Select(user => new UserGetDto(user)));
     }
     
-    [HttpGet("{id:guid}", Name = "get")]
+    [HttpGet("{id:guid}", Name = "getUser")]
     public async Task<ActionResult<UserGetDto>> GetUser(Guid id) {
         var user = await context.Users.FindAsync(id);
         if (user == null) return NotFound();

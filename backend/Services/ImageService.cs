@@ -4,29 +4,55 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using OnlyBans.Backend.Models;
+using OnlyBans.Backend.Models.Posts;
 using OnlyBans.Backend.Models.Users;
 
 namespace OnlyBans.Backend.Services;
 
 public interface IImageService {
+    Task<IActionResult> GetPostImage(Post post);
+    Task SavePostImageAsync(Post post, IFormFile imageFile);
     Task<IActionResult> GetAvatarAsync(User user);
 }
 
 public class ImageService(UserManager<User> userManager, HttpClient httpClient) : IImageService {
-    
-    private const string UserAvatarPath = "Uploads/Avatars";
+
+    private const string UploadsPath = "Uploads";
+    private const string UserAvatarsPath = $"{UploadsPath}/Avatars";
+    private const string PostImagesPath = $"{UploadsPath}/Posts";
+
+    private static string GetPostImagePath(Post post) =>
+        Path.Combine(PostImagesPath, $"{post.Id}{post.ImageType.GetFileExtension()}");
+
+    public Task<IActionResult> GetPostImage(Post post) {
+        return GetImage(GetPostImagePath(post));
+    }
+
+    public async Task SavePostImageAsync(Post post, IFormFile imageFile) {
+        if (imageFile == null || imageFile.Length == 0)
+            throw new ArgumentException("Invalid image file.", nameof(imageFile));
+
+        var imagePath = GetPostImagePath(post);
+        Directory.CreateDirectory(Path.GetDirectoryName(imagePath)!);
+        await using var stream = new FileStream(imagePath, FileMode.Create);
+        await imageFile.CopyToAsync(stream);
+    }
 
     public async Task<IActionResult> GetAvatarAsync(User user) {
         return user.ImageType switch {
             ImageType.None => new NotFoundObjectResult("This user has no avatar."),
             ImageType.Remote => await GetRemoteAvatarAsync(user),
-            _ => await GetLocalAvatarAsync(user),
+            _ => await GetLocalAvatar(user),
         };
     }
 
-    private Task<IActionResult> GetLocalAvatarAsync(User user) {
-        var imagePath = Path.Combine(UserAvatarPath, user.Id.ToString());
-        if (!File.Exists(imagePath)) 
+    private Task<IActionResult> GetLocalAvatar(User user) {
+        var imagePath = Path.Combine(UserAvatarsPath, user.Id.ToString(), user.ImageType.ToString().ToLower());
+        return GetImage(imagePath);
+    }
+
+    private static Task<IActionResult> GetImage(string imagePath) {
+        if (!File.Exists(imagePath))
             return Task.FromResult<IActionResult>(new NotFoundResult());
         
         var provider = new FileExtensionContentTypeProvider();
@@ -41,17 +67,6 @@ public class ImageService(UserManager<User> userManager, HttpClient httpClient) 
         var token = await userManager.GetAuthenticationTokenAsync(user, "bosch", "access_token");
         if (string.IsNullOrEmpty(token))
             return new NotFoundObjectResult("The access token is missing.");
-        
-        
-        // var authResult = await HttpContext
-        // var accessToken = authResult?.Properties?.GetTokenValue("access_token");
-        //
-        // if (string.IsNullOrEmpty(accessToken)) {
-        //     Debug.WriteLine("No access token found in authentication properties.");
-        //     return new NotFoundResult();
-        // }
-        //
-        // Debug.WriteLine($"Using access token: {accessToken}");
 
         var request = new HttpRequestMessage(HttpMethod.Get, "https://graph.microsoft.com/v1.0/me/photo/$value");
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);

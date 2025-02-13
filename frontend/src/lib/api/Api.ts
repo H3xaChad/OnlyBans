@@ -40,7 +40,8 @@ export enum ImageType {
 	Value0 = 0,
 	Value1 = 1,
 	Value2 = 2,
-	Value3 = 3
+	Value3 = 3,
+	Value4 = 4
 }
 
 export interface LoginDto {
@@ -56,25 +57,14 @@ export interface LoginDto {
 export interface Post {
 	/** @format uuid */
 	id?: string;
+	imageType?: ImageType;
 	title?: string | null;
-	text?: string | null;
+	description?: string | null;
 	/** @format uuid */
 	userId?: string;
 	user?: User;
 	likedByUsers?: UserPostLike[] | null;
-}
-
-export interface PostCreateDto {
-	/**
-	 * @minLength 1
-	 * @maxLength 42
-	 */
-	title: string;
-	/**
-	 * @minLength 1
-	 * @maxLength 1600
-	 */
-	text: string;
+	comments?: Comment[] | null;
 }
 
 export interface Rule {
@@ -133,7 +123,7 @@ export interface User {
 	displayName?: string | null;
 	state?: UserState;
 	/** @format date */
-	birthDate: string;
+	birthDate?: string;
 	imageType?: ImageType;
 	/** @format date-time */
 	createdAt?: string;
@@ -529,15 +519,74 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				...params
 			})
 	};
+	follow = {
+		/**
+		 * No description
+		 *
+		 * @tags Follow
+		 * @name Follow
+		 * @request POST:/api/v1/follow/{id}
+		 */
+		follow: (id: string, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/api/v1/follow/${id}`,
+				method: 'POST',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Follow
+		 * @name Unfollow
+		 * @request DELETE:/api/v1/follow/{id}
+		 */
+		unfollow: (id: string, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/api/v1/follow/${id}`,
+				method: 'DELETE',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Follow
+		 * @name GetMyFollowers
+		 * @request GET:/api/v1/follow/followers
+		 */
+		getMyFollowers: (params: RequestParams = {}) =>
+			this.request<string[], any>({
+				path: `/api/v1/follow/followers`,
+				method: 'GET',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Follow
+		 * @name GetMyFollowing
+		 * @request GET:/api/v1/follow/following
+		 */
+		getMyFollowing: (params: RequestParams = {}) =>
+			this.request<string[], any>({
+				path: `/api/v1/follow/following`,
+				method: 'GET',
+				format: 'json',
+				...params
+			})
+	};
 	post = {
 		/**
 		 * No description
 		 *
 		 * @tags Post
-		 * @name GetPosts
+		 * @name GetAllPosts
 		 * @request GET:/api/v1/post
 		 */
-		getPosts: (params: RequestParams = {}) =>
+		getAllPosts: (params: RequestParams = {}) =>
 			this.request<UserGetDto[], any>({
 				path: `/api/v1/post`,
 				method: 'GET',
@@ -552,12 +601,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * @name CreatePost
 		 * @request POST:/api/v1/post
 		 */
-		createPost: (data: PostCreateDto, params: RequestParams = {}) =>
+		createPost: (
+			data: {
+				/** @maxLength 42 */
+				Title: string;
+				/** @maxLength 1600 */
+				Description: string;
+				/** @format binary */
+				Image: File;
+			},
+			params: RequestParams = {}
+		) =>
 			this.request<UserGetDto, any>({
 				path: `/api/v1/post`,
 				method: 'POST',
 				body: data,
-				type: ContentType.Json,
+				type: ContentType.FormData,
 				format: 'json',
 				...params
 			}),
@@ -588,6 +647,35 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 			this.request<void, any>({
 				path: `/api/v1/post/${id}/like`,
 				method: 'POST',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Post
+		 * @name UnlikePost
+		 * @request DELETE:/api/v1/post/{id}/like
+		 */
+		unlikePost: (id: string, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/api/v1/post/${id}/like`,
+				method: 'DELETE',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Post
+		 * @name GetComments
+		 * @request GET:/api/v1/post/{postId}/comments
+		 */
+		getComments: (postId: string, params: RequestParams = {}) =>
+			this.request<CommentGetDto[], any>({
+				path: `/api/v1/post/${postId}/comments`,
+				method: 'GET',
+				format: 'json',
 				...params
 			})
 	};
@@ -703,10 +791,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags User
-		 * @name GetUsers
+		 * @name GetAllUsers
 		 * @request GET:/api/v1/user
 		 */
-		getUsers: (params: RequestParams = {}) =>
+		getAllUsers: (params: RequestParams = {}) =>
 			this.request<UserGetDto[], any>({
 				path: `/api/v1/user`,
 				method: 'GET',
@@ -733,14 +821,27 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags User
+		 * @name GetMyAvatar
+		 * @request GET:/api/v1/user/avatar
+		 */
+		getMyAvatar: (params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/api/v1/user/avatar`,
+				method: 'GET',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags User
 		 * @name GetAvatar
 		 * @request GET:/api/v1/user/{id}/avatar
 		 */
 		getAvatar: (id: string, params: RequestParams = {}) =>
-			this.request<UserGetDto, any>({
+			this.request<void, any>({
 				path: `/api/v1/user/${id}/avatar`,
 				method: 'GET',
-				format: 'json',
 				...params
 			})
 	};

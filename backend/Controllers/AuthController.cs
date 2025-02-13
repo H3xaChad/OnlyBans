@@ -110,7 +110,7 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
             await signInManager.UpdateExternalAuthenticationTokensAsync(info);
 
             // Refresh the sign-in (optional, but used here to update the cookie)
-            //await signInManager.SignOutAsync();
+            await signInManager.SignOutAsync();
             await signInManager.SignInAsync(externalUser, isPersistent: true, info.LoginProvider);
             return returnUrl != null ? Redirect(returnUrl) : NoContent();
         }

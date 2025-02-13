@@ -45,5 +45,10 @@
         <button on:click={() => handleOAuth('bosch')} class=" cursor-pointer p-3 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-800 transition w-full">
             Login with OAuth
         </button>
+
+        <div class="text-center text-gray-500 my-4 border-t border-gray-300 pt-4">
+            <a href="/register" class="text-blue-500 hover:underline">Create an account</a>
+        </div>
+
     </div>
 </div>

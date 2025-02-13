@@ -12,12 +12,16 @@ public class PostCreateDto {
 
     [Required]
     [MaxLength(1600)]
-    public required string Text { get; init; }
+    public required string Description { get; init; }
     
-    public Post ToPost(Guid userId) {
+    [Required]
+    public required IFormFile Image { get; init; }
+    
+    public Post ToPost(Guid userId, ImageType imageType) {
         return new Post {
+            ImageType = imageType,
             Title = Title,
-            Text = Text,
+            Description = Description,
             UserId = userId
         };
     }

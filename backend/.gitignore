@@ -1,4 +1,5 @@
 ﻿secrets.env
+Uploads
 
 # Ignore build output and temp files
 **/bin/

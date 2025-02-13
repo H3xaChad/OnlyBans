@@ -9,16 +9,9 @@ public class Rule {
     
     [Key]
     public Guid Id { get; init; }
-    
     public string Text { get; init; } = null!;
-    
     public RuleEnum RuleCategory { get; init; }
-    
-    [ForeignKey(nameof(User))]
-    
     public Guid UserId { get; init; }
-    
     public User User { get; init; } = null!;
-    
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 }
