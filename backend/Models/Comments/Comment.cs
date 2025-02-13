@@ -9,10 +9,10 @@ public class Comment {
     
     [Key]
     public Guid Id { get; init; }
-    public required string Content { get; init; }
-    public required Guid PostId { get; init; }
-    public required Post Post { get; init; }
-    public required Guid UserId { get; init; }
-    public required User User { get; init; }
+    public Guid UserId { get; init; }
+    public User User { get; init; }
+    public Guid PostId { get; init; }
+    public Post Post { get; init; }
+    public string Content { get; init; }
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 }
