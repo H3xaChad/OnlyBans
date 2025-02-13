@@ -65,8 +65,11 @@ namespace OnlyBans.Backend.Spine.Validation
             string contentText = content.Description;
             string contentTitle = content.Title;
             Console.WriteLine("validating now");
-            rh.checkTitle(contentTitle);
-            
+
+            if (rh.checkTitle(contentTitle))
+            {
+                return true;
+            }
             return false;
         }
     }

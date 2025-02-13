@@ -46,7 +46,7 @@ public class RuleHandler
 
     public bool checkTitle(string title)
     {
-        if (ar.validateRule(titleRules, 0))
+        if (ar.validateRule(title, titleRules, 0))
         {
             return true;
         }
