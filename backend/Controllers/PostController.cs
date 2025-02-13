@@ -74,10 +74,10 @@ public class PostController(
         var post = postDto.ToPost(user.Id, ImageTypeExtensions.FromFileExtension(fileExtension));
         var vh = new ValidationHandler(context);
         context.Posts.Add(post);
-        // if (!vh.validateContent(post)) {
-        //     context.Posts.Remove(post);
-        //     return BadRequest("Post content is not valid");
-        // }
+        if (!vh.validateContent(post)) {
+            context.Posts.Remove(post);
+            return BadRequest("Post content is not valid");
+        }
 
         await imageService.SavePostImageAsync(post, postDto.Image);
 
