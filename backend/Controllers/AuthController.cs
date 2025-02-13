@@ -50,7 +50,8 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
     [HttpPost("logout", Name = "logout")]
     public async Task<IActionResult> Logout() {
         await signInManager.SignOutAsync();
-        return Ok(new { message = "User creation successful" });
+        Debug.WriteLine("==== User successfully logged out");
+        return Ok(new { message = "User logout successful" });
     }
     
     [AllowAnonymous]

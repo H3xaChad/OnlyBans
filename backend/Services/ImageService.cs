@@ -13,6 +13,7 @@ public interface IImageService {
     Task<IActionResult> GetPostImage(Post post);
     Task SavePostImageAsync(Post post, IFormFile imageFile);
     Task<IActionResult> GetAvatarAsync(User user);
+    Task UpdateLocalAvatarAsync(User user, IFormFile imageFile);
 }
 
 public class ImageService(UserManager<User> userManager, HttpClient httpClient) : IImageService {
@@ -20,9 +21,21 @@ public class ImageService(UserManager<User> userManager, HttpClient httpClient) 
     private const string UploadsPath = "Uploads";
     private const string UserAvatarsPath = $"{UploadsPath}/Avatars";
     private const string PostImagesPath = $"{UploadsPath}/Posts";
+    private const string UserDefaultAvatarPath = $"{UserAvatarsPath}/DefaultAvatar.jpg";
+    
+    public async Task<IActionResult> GetAvatarAsync(User user) {
+        return user.ImageType switch {
+            ImageType.None => await GetImage(UserDefaultAvatarPath),
+            ImageType.Remote => await GetImage(UserDefaultAvatarPath), // await GetRemoteAvatarAsync(user),
+            _ => await GetLocalAvatar(user),
+        };
+    }
 
     private static string GetPostImagePath(Post post) =>
         Path.Combine(PostImagesPath, $"{post.Id}{post.ImageType.GetFileExtension()}");
+    
+    private static string GetAvatarImagePath(User user) =>
+        Path.Combine(UserAvatarsPath, $"{user.Id}{user.ImageType.GetFileExtension()}");
 
     public Task<IActionResult> GetPostImage(Post post) {
         return GetImage(GetPostImagePath(post));
@@ -38,17 +51,19 @@ public class ImageService(UserManager<User> userManager, HttpClient httpClient) 
         await imageFile.CopyToAsync(stream);
     }
 
-    public async Task<IActionResult> GetAvatarAsync(User user) {
-        return user.ImageType switch {
-            ImageType.None => new NotFoundObjectResult("This user has no avatar."),
-            ImageType.Remote => await GetRemoteAvatarAsync(user),
-            _ => await GetLocalAvatar(user),
-        };
-    }
-
     private Task<IActionResult> GetLocalAvatar(User user) {
-        var imagePath = Path.Combine(UserAvatarsPath, user.Id.ToString(), user.ImageType.ToString().ToLower());
-        return GetImage(imagePath);
+        return GetImage(GetAvatarImagePath(user));
+    }
+    
+    public async Task UpdateLocalAvatarAsync(User user, IFormFile imageFile) {
+        if (imageFile == null || imageFile.Length == 0)
+            throw new ArgumentException("Invalid image file.", nameof(imageFile));
+
+        var imagePath = GetAvatarImagePath(user);
+        Directory.CreateDirectory(Path.GetDirectoryName(imagePath)!);
+        await using var stream = new FileStream(imagePath, FileMode.Create);
+        await imageFile.CopyToAsync(stream);
+        //user.ImageType = ImageTypeExtensions.GetFileExtension("");
     }
 
     private static Task<IActionResult> GetImage(string imagePath) {

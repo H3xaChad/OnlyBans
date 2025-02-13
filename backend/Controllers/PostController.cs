@@ -21,10 +21,27 @@ public class PostController(
     IImageService imageService,
     CommentService commentService) : ControllerBase {
     
-    [HttpGet(Name = "getAllPosts")]
-    public async Task<ActionResult<IEnumerable<UserGetDto>>> GetPosts() {
+    [HttpGet("all", Name = "getAllPosts")]
+    public async Task<ActionResult<IEnumerable<PostGetDto>>> GetPosts() {
         var posts = await context.Posts
             .AsNoTracking()
+            .Include(p => p.User)
+            .Select(p => new PostGetDto(p))
+            .ToListAsync();
+
+        return Ok(posts);
+    }
+    
+    [Authorize]
+    [HttpGet("me", Name = "getMyPosts")]
+    public async Task<ActionResult<IEnumerable<PostGetDto>>> GetMyPosts() {
+        var user = await userManager.GetUserAsync(User);
+        if (user == null)
+            return Unauthorized("Please log in to create a post");
+        
+        var posts = await context.Posts
+            .AsNoTracking()
+            .Where(p => p.UserId == user.Id)
             .Include(p => p.User)
             .Select(p => new PostGetDto(p))
             .ToListAsync();
@@ -85,7 +102,7 @@ public class PostController(
 
         context.Posts.Add(post);
         await context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetPost), new { id = post.Id }, post);
+        return CreatedAtAction(nameof(GetPost), new { id = post.Id }, new PostGetDto(post));
     }
     
     [Authorize]

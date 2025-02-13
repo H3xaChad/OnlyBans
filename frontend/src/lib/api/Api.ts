@@ -12,13 +12,13 @@
 export interface Comment {
 	/** @format uuid */
 	id?: string;
-	content: string | null;
 	/** @format uuid */
-	postId: string;
-	post: Post;
+	userId?: string;
+	user?: User;
 	/** @format uuid */
-	userId: string;
-	user: User;
+	postId?: string;
+	post?: Post;
+	content?: string | null;
 	/** @format date-time */
 	createdAt?: string;
 }
@@ -593,11 +593,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 *
 		 * @tags Post
 		 * @name GetAllPosts
-		 * @request GET:/api/v1/post
+		 * @request GET:/api/v1/post/all
 		 */
 		getAllPosts: (params: RequestParams = {}) =>
-			this.request<UserGetDto[], any>({
-				path: `/api/v1/post`,
+			this.request<PostGetDto[], any>({
+				path: `/api/v1/post/all`,
 				method: 'GET',
 				format: 'json',
 				...params
@@ -607,25 +607,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags Post
-		 * @name CreatePost
-		 * @request POST:/api/v1/post
+		 * @name GetMyPosts
+		 * @request GET:/api/v1/post/me
 		 */
-		createPost: (
-			data: {
-				/** @maxLength 42 */
-				Title: string;
-				/** @maxLength 1600 */
-				Description: string;
-				/** @format binary */
-				Image: File;
-			},
-			params: RequestParams = {}
-		) =>
-			this.request<UserGetDto, any>({
-				path: `/api/v1/post`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
+		getMyPosts: (params: RequestParams = {}) =>
+			this.request<PostGetDto[], any>({
+				path: `/api/v1/post/me`,
+				method: 'GET',
 				format: 'json',
 				...params
 			}),
@@ -656,6 +644,33 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 			this.request<void, any>({
 				path: `/api/v1/post/${id}/image`,
 				method: 'GET',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Post
+		 * @name CreatePost
+		 * @request POST:/api/v1/post
+		 */
+		createPost: (
+			data: {
+				/** @maxLength 42 */
+				Title: string;
+				/** @maxLength 1600 */
+				Description: string;
+				/** @format binary */
+				Image: File;
+			},
+			params: RequestParams = {}
+		) =>
+			this.request<PostGetDto, any>({
+				path: `/api/v1/post`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
 				...params
 			}),
 

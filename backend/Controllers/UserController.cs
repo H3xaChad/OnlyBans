@@ -40,8 +40,19 @@ public class UserController(
     [HttpGet("avatar", Name = "getMyAvatar")]
     public async Task<IActionResult> GetMyAvatar() {
         var user = await userManager.GetUserAsync(User);
-        if (user == null) return NotFound("You need to login for this operation.");
+        if (user == null)
+            return NotFound("You need to login for this operation.");
         return await imageService.GetAvatarAsync(user);
+    }
+    
+    [Authorize]
+    [HttpPost("avatar", Name = "updateMyAvatar")]
+    public async Task<IActionResult> UpdateMyAvatar(IFormFile image) {
+        var user = await userManager.GetUserAsync(User);
+        if (user == null)
+            return NotFound("You need to login for this operation.");
+        await imageService.UpdateLocalAvatarAsync(user, image);
+        return Ok("Successfully updated user image");
     }
     
     [HttpGet("{id:guid}/avatar", Name = "getAvatar")]

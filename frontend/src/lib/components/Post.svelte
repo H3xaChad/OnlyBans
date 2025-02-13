@@ -11,7 +11,7 @@
     {#if imageUrl}
         <img 
             class="w-full h-64 object-cover rounded-lg mb-3" 
-            src={imageUrl} 
+            src={imageUrl}
             alt=""
         />
     {/if}

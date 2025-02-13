@@ -3,6 +3,7 @@
     import { api } from '$lib/api/ApiService'
     import type { PostGetDto } from '$lib/api/Api'
     import Post from '$lib/components/Post.svelte'
+	import TopBar from '$lib/components/TopBar.svelte';
 
     let posts: (PostGetDto & { imageUrl?: string, userName?: string })[] = []
     let loading: boolean = true
@@ -49,6 +50,8 @@
         }
     })
 </script>
+
+<TopBar/>
 
 <div class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-100 to-white py-10 overflow-auto">
     <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Feed</h2>

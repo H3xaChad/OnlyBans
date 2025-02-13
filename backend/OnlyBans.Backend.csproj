@@ -26,8 +26,8 @@
 
     <ItemGroup>
       <Folder Include="Migrations\" />
-      <Folder Include="Uploads\Avatars\" />
       <Folder Include="Uploads\Posts\" />
+      <Folder Include="Utils\" />
     </ItemGroup>
 
 </Project>
