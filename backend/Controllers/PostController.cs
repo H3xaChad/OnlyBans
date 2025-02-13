@@ -42,23 +42,25 @@ public class PostController(
             .FirstOrDefaultAsync();
     
         if (post == null)
-            return NotFound();
+            return NotFound("This post does not exist.");
     
         return Ok(post);
     }
     
-    // [HttpGet("{id:guid}", Name = "getPostImage")]
-    // public async Task<ActionResult<UserGetDto>> GetPostImage(Guid id) {
-    //     var post = await context.Posts.FindAsync(id);
-    //     if (post == null)
-    //         return NotFound();
-    //
-    //     return Ok(new PostGetDto(post));
-    // }
+    [HttpGet("{id:guid}/image", Name = "getPostImage")]
+    public async Task<IActionResult> GetPostImage(Guid id) {
+        var post = await context.Posts.FindAsync(id);
+        if (post == null)
+            return NotFound("This post does not exist.");
+
+        return await imageService.GetPostImage(post);
+    }
     
     [Authorize]
     [HttpPost(Name = "createPost")]
-    public async Task<ActionResult<UserGetDto>> CreatePost([FromForm] PostCreateDto postDto) {
+    [Consumes("multipart/form-data")]
+    //[ProducesResponseType]
+    public async Task<ActionResult<PostGetDto>> CreatePost([FromForm] PostCreateDto postDto) {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
         
@@ -123,5 +125,4 @@ public class PostController(
     public async Task<ActionResult<IEnumerable<CommentGetDto>>> GetPostComments(Guid postId) {
         return Ok(await commentService.GetCommentsByPost(postId));
     }
-
 }

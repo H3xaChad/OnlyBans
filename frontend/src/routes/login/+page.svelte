@@ -2,7 +2,7 @@
     import { goto } from '$app/navigation'
     import type { LoginDto } from '$lib/api/Api'
     import { api, apiLoginUrl } from '$lib/api/ApiService'
-	import Input from '$lib/components/Input.svelte';
+	import Input from '$lib/components/Input.svelte'
 
     let email = ''
     let password = ''

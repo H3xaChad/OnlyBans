@@ -12,6 +12,11 @@ public class CommentCreateDto {
     [Required]
     public required Guid PostId { get; init; }
     
-    [Required]
-    public required Guid UserId { get; init; }
+    public Comment ToComment(Guid userId) {
+        return new Comment {
+            UserId = userId,
+            PostId = PostId,
+            Content = Content
+        };
+    }
 }

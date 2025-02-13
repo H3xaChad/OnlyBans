@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using OnlyBans.Backend.Config;
 using OnlyBans.Backend.Extensions;
 using OnlyBans.Backend.Services;
 using OnlyBans.Backend.Spine.Rules;
@@ -41,6 +42,7 @@ builder.Services.AddSwaggerGen(opt => {
         Type = "string",
         Format = "date"
     });
+    opt.SchemaFilter<RegisterModelsFilter>();
 });
 
 var app = builder.Build();

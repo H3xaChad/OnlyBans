@@ -67,6 +67,15 @@ export interface Post {
 	comments?: Comment[] | null;
 }
 
+export interface PostGetDto {
+	/** @format uuid */
+	id?: string;
+	/** @format uuid */
+	userId?: string;
+	title?: string | null;
+	description?: string | null;
+}
+
 export interface Rule {
 	/** @format uuid */
 	id?: string;
@@ -629,10 +638,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * @request GET:/api/v1/post/{id}
 		 */
 		getPost: (id: string, params: RequestParams = {}) =>
-			this.request<UserGetDto, any>({
+			this.request<PostGetDto, any>({
 				path: `/api/v1/post/${id}`,
 				method: 'GET',
 				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Post
+		 * @name GetPostImage
+		 * @request GET:/api/v1/post/{id}/image
+		 */
+		getPostImage: (id: string, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/api/v1/post/${id}/image`,
+				method: 'GET',
 				...params
 			}),
 
