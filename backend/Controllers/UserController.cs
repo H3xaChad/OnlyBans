@@ -18,28 +18,28 @@ public class UserController(
     
     [Authorize]
     [HttpGet("me", Name = "me")]
-    public async Task<ActionResult<UserGetDto>> GetCurrentUser() {
+    public async Task<ActionResult<UserGetMyDto>> GetCurrentUser() {
         var user = await userManager.GetUserAsync(User);
         if (user == null) return Unauthorized("You need to login for this operation.");
-        return Ok(new UserGetDto(user, userManager));
+        return Ok(new UserGetMyDto(user, userManager));
     }
     
     [HttpGet(Name = "getAllUsers")]
     public async Task<ActionResult<IEnumerable<UserGetDto>>> GetUsers() {
         var users = await context.Users.ToListAsync();
-        return Ok(users.Select(user => new UserGetDto(user, userManager)));
+        return Ok(users.Select(user => new UserGetDto(user)));
     }
     
     [HttpGet("{id:guid}", Name = "getUser")]
     public async Task<ActionResult<UserGetDto>> GetUser(Guid id) {
         var user = await context.Users.FindAsync(id);
         if (user == null) return NotFound();
-        return Ok(new UserGetDto(user, userManager));
+        return Ok(new UserGetDto(user));
     }
     
     [Authorize]
     [HttpPatch("update", Name = "updateUser")]
-    public async Task<ActionResult<UserGetDto>> Update([FromBody] UserUpdateDto updateDto) {
+    public async Task<ActionResult<UserGetMyDto>> Update([FromBody] UserUpdateDto updateDto) {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
         
@@ -51,6 +51,7 @@ public class UserController(
         user.DisplayName = updateDto.DisplayName;
         user.Email = updateDto.Email;
         user.PhoneNumber = updateDto.PhoneNumber;
+        user.BirthDate = updateDto.BirthDate;
         
         var token = await userManager.GeneratePasswordResetTokenAsync(user);
         var passwordResult = await userManager.ResetPasswordAsync(user, token, updateDto.Password);
@@ -61,7 +62,7 @@ public class UserController(
         if (!updateResult.Succeeded)
             return BadRequest(updateResult.Errors);
 
-        return Ok(new UserGetDto(user, userManager));
+        return Ok(new UserGetMyDto(user, userManager));
     }
     
     [Authorize]
@@ -79,7 +80,7 @@ public class UserController(
         var user = await userManager.GetUserAsync(User);
         if (user == null)
             return NotFound("You need to login for this operation.");
-        //user.ImageType = 
+
         await imageService.UpdateLocalAvatarAsync(user, image);
         return Ok("Successfully updated user image");
     }

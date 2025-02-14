@@ -174,7 +174,18 @@ export interface UserGetDto {
 	id?: string;
 	displayName?: string | null;
 	userName?: string | null;
+}
+
+export interface UserGetMyDto {
+	/** @format uuid */
+	id?: string;
 	email?: string | null;
+	userName?: string | null;
+	displayName?: string | null;
+	/** @format date */
+	birthDate?: string;
+	/** @format date-time */
+	createdAt?: string;
 	isOAuthUser?: boolean;
 }
 
@@ -614,6 +625,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				...params
 			})
 	};
+	info = {
+		/**
+		 * No description
+		 *
+		 * @tags Info
+		 * @name GetSupportedImageTypes
+		 * @request POST:/api/v1/info/supported-image-types
+		 */
+		getSupportedImageTypes: (params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/api/v1/info/supported-image-types`,
+				method: 'POST',
+				...params
+			})
+	};
 	post = {
 		/**
 		 * No description
@@ -845,7 +871,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * @request GET:/api/v1/user/me
 		 */
 		me: (params: RequestParams = {}) =>
-			this.request<UserGetDto, any>({
+			this.request<UserGetMyDto, any>({
 				path: `/api/v1/user/me`,
 				method: 'GET',
 				format: 'json',
@@ -890,7 +916,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * @request PATCH:/api/v1/user/update
 		 */
 		updateUser: (data: UserUpdateDto, params: RequestParams = {}) =>
-			this.request<UserGetDto, any>({
+			this.request<UserGetMyDto, any>({
 				path: `/api/v1/user/update`,
 				method: 'PATCH',
 				body: data,

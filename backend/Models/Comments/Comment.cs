@@ -13,6 +13,6 @@ public class Comment {
     public User User { get; init; }
     public Guid PostId { get; init; }
     public Post Post { get; init; }
-    public string Content { get; init; }
+    public string Content { get; set; }
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 }

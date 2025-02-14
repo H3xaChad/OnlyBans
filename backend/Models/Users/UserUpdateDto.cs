@@ -23,9 +23,16 @@ public class UserUpdateDto {
     [Required]
     [RegularExpression(@"^\+?[1-9]\d{1,14}$", ErrorMessage = "Invalid phone number format.")]
     public required string PhoneNumber { get; init; }
+    
+    [Required]
+    public required DateOnly BirthDate { get; init; }
 
     [Required]
     [MinLength(8)]
     [PasswordPropertyText]
     public required string Password { get; init; }
+
+    public void Apply(User user) {
+        
+    }
 }

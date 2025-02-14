@@ -138,6 +138,26 @@ public class PostController(
         return Ok(new { message = "Like removed successfully" });
     }
     
+    [Authorize]
+    [HttpPost("{postId:guid}/comment", Name = "createComment")]
+    public async Task<IActionResult> CreateComment(Guid postId, CommentCreateDto commentDto) {
+        var user = await userManager.GetUserAsync(User);
+        if (user == null)
+            return Unauthorized("Please log in to comment on a post");
+
+        var post = await context.Posts.FindAsync(postId);
+        if (post == null)
+            return NotFound(new { message = "Post not found" });
+
+        if (string.IsNullOrWhiteSpace(commentDto.Content))
+            return BadRequest(new { message = "Comment content cannot be empty" });
+
+        var comment = commentDto.ToComment(user.Id);
+        context.Comments.Add(comment);
+        await context.SaveChangesAsync();
+        return Ok(new { message = "Comment posted successfully" });
+    }
+    
     [HttpGet("{postId:guid}/comments", Name = "getComments")]
     public async Task<ActionResult<IEnumerable<CommentGetDto>>> GetPostComments(Guid postId) {
         return Ok(await commentService.GetCommentsByPost(postId));

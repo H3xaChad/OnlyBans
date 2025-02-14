@@ -1,11 +1,11 @@
 <script lang="ts">
     import { onMount } from 'svelte'
     import { api } from '$lib/api/ApiService'
-    import type { UserGetDto, PostGetDto } from '$lib/api/Api'
+    import type { UserGetMyDto, PostGetDto } from '$lib/api/Api'
     import { goto } from '$app/navigation'
 	import Topbar from '$lib/components/TopBar.svelte'
 
-    let user: UserGetDto | null = null
+    let user: UserGetMyDto | null = null
     let posts: (PostGetDto & { imageUrl?: string })[] = []
     let profileAvatarUrl: string = ''
     let loading: boolean = true
@@ -18,7 +18,7 @@
             if (!userResponse.ok) {
                 throw new Error(`Error fetching user: ${userResponse.statusText}`)
             }
-            user = await userResponse.json() as UserGetDto
+            user = await userResponse.json() as UserGetMyDto
             if (!user) throw new Error('User data is empty')
 
             const avatarResponse = await api.user.getMyAvatar()

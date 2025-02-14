@@ -2,22 +2,20 @@
     import { onMount } from 'svelte'
     import { goto } from '$app/navigation'
     import { api } from '$lib/api/ApiService'
-    import type { UserGetDto, UserUpdateDto } from '$lib/api/Api'
+    import type { UserGetMyDto, UserUpdateDto } from '$lib/api/Api'
     import Topbar from '$lib/components/TopBar.svelte'
     import Input from '$lib/components/Input.svelte'
 
-    let user: UserGetDto | null = null
+    let user: UserGetMyDto | null = null
     let loading: boolean = true
     let error: string | null = null
 
-    // Editable fields for local users (from UserUpdateDto)
     let userName = ''
     let displayName = ''
     let email = ''
     let phoneNumber = ''
     let password = ''
 
-    // Avatar variables
     let currentAvatarUrl = ''
     let newAvatarUrl = ''
     let newAvatarFile: File | null = null
@@ -28,7 +26,7 @@
             if (!response.ok) {
                 throw new Error(`Error fetching user: ${response.statusText}`)
             }
-            user = await response.json() as UserGetDto
+            user = await response.json() as UserGetMyDto
             if (!user) throw new Error('User data is empty')
 
             // For local users, prefill form fields

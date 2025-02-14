@@ -28,7 +28,10 @@
     }
 </script>
 
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-100 to-white">
+<div class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-100 to-white space-y-10">
+    <h1 class="text-7xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 text-transparent bg-clip-text">
+        OnlyBans
+    </h1>
     <div class="bg-white p-10 rounded-2xl shadow-2xl w-96 slide-in border border-gray-200">
         <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Login</h2>
         

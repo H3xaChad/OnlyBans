@@ -44,7 +44,7 @@ public class ImageService(UserManager<User> userManager, HttpClient httpClient) 
     public async Task SavePostImageAsync(Post post, IFormFile imageFile) {
         if (imageFile == null || imageFile.Length == 0)
             throw new ArgumentException("Invalid image file.", nameof(imageFile));
-
+        
         var imagePath = GetPostImagePath(post);
         Directory.CreateDirectory(Path.GetDirectoryName(imagePath)!);
         await using var stream = new FileStream(imagePath, FileMode.Create);
@@ -59,11 +59,14 @@ public class ImageService(UserManager<User> userManager, HttpClient httpClient) 
         if (imageFile == null || imageFile.Length == 0)
             throw new ArgumentException("Invalid image file.", nameof(imageFile));
 
+        user.ImageType = ImageTypeExtensions.FromFileExtension(Path.GetExtension(imageFile.FileName));
+        if (user.ImageType == ImageType.None)
+            return;
+        
         var imagePath = GetAvatarImagePath(user);
         Directory.CreateDirectory(Path.GetDirectoryName(imagePath)!);
         await using var stream = new FileStream(imagePath, FileMode.Create);
         await imageFile.CopyToAsync(stream);
-        //user.ImageType = ImageTypeExtensions.GetFileExtension("");
     }
 
     private static Task<IActionResult> GetImage(string imagePath) {
