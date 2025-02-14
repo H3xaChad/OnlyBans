@@ -9,5 +9,4 @@ public class CustomUtils {
         var externalLogins = await userManager.GetLoginsAsync(user);
         return externalLogins.Count > 0;
     }
-    
 }

@@ -10,7 +10,7 @@
     <p class="text-gray-500 text-sm mb-3">Posted by {userName ?? 'Unknown User'}</p>
     {#if imageUrl}
         <img 
-            class="w-full h-64 object-cover rounded-lg mb-3" 
+            class="w-full h-full object-cover rounded-lg mb-3" 
             src={imageUrl}
             alt=""
         />
