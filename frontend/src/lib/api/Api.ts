@@ -23,6 +23,16 @@ export interface Comment {
 	createdAt?: string;
 }
 
+export interface CommentCreateDto {
+	/**
+	 * @minLength 1
+	 * @maxLength 1000
+	 */
+	content: string;
+	/** @format uuid */
+	postId: string;
+}
+
 export interface CommentGetDto {
 	/** @format uuid */
 	id?: string;
@@ -33,6 +43,12 @@ export interface CommentGetDto {
 	content?: string | null;
 	/** @format date-time */
 	createdAt?: string;
+}
+
+export interface CommentUpdateDto {
+	/** @format uuid */
+	id?: string;
+	content?: string | null;
 }
 
 /** @format int32 */
@@ -74,6 +90,8 @@ export interface PostGetDto {
 	userId?: string;
 	title?: string | null;
 	description?: string | null;
+	/** @format int32 */
+	likeCount?: number;
 }
 
 export interface Rule {
@@ -229,6 +247,8 @@ export interface UserUpdateDto {
 	 * @pattern ^\+?[1-9]\d{1,14}$
 	 */
 	phoneNumber: string;
+	/** @format date */
+	birthDate: string;
 	/** @minLength 8 */
 	password: string;
 }
@@ -563,6 +583,52 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				path: `/api/v1/comment/${id}`,
 				method: 'GET',
 				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Comment
+		 * @name DeleteComment
+		 * @request DELETE:/api/v1/comment/{id}
+		 */
+		deleteComment: (id: string, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/api/v1/comment/${id}`,
+				method: 'DELETE',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Comment
+		 * @name CreateComment
+		 * @request POST:/api/v1/comment
+		 */
+		createComment: (data: CommentCreateDto, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/api/v1/comment`,
+				method: 'POST',
+				body: data,
+				type: ContentType.Json,
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags Comment
+		 * @name ChangeComment
+		 * @request PATCH:/api/v1/comment
+		 */
+		changeComment: (data: CommentUpdateDto, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/api/v1/comment`,
+				method: 'PATCH',
+				body: data,
+				type: ContentType.Json,
 				...params
 			})
 	};

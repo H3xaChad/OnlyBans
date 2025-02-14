@@ -1,6 +1,9 @@
 <script>
 	import { writable } from "svelte/store";
 
+	/**
+	 * @type {string}
+	 */
 	export let selectedSubtopic; // Vom Parent übergebene Auswahl aus der Navbar
 	let rules = writable([]); // Speichert alle Regeln
 	let filteredRules = writable([]); // Speichert die gefilterten Regeln

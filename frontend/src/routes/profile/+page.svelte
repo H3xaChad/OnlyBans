@@ -3,7 +3,7 @@
     import { api } from '$lib/api/ApiService'
     import type { UserGetMyDto, PostGetDto } from '$lib/api/Api'
     import { goto } from '$app/navigation'
-	import Topbar from '$lib/components/TopBar.svelte'
+    import Topbar from '$lib/components/TopBar.svelte'
 
     let user: UserGetMyDto | null = null
     let posts: (PostGetDto & { imageUrl?: string })[] = []
@@ -61,9 +61,13 @@
         api.auth.logout()
         goto('/login')
     }
+
+    function openPost(postId: string) {
+        goto(`/post/${postId}`)
+    }
 </script>
 
-<Topbar/>
+<Topbar />
 
 <div class="pt-20 max-w-5xl mx-auto px-4">
     {#if loading}
@@ -80,14 +84,16 @@
                     {/if}
                 </div>
                 <div class="flex-1">
-                    <div class="flex items-center space-x-4">
+                    <div class="flex justify-between items-center w-full">
                         <h2 class="text-3xl font-bold">{user.userName}</h2>
-                        <button on:click={handleEditProfile} class="cursor-pointer px-4 py-2 border rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                            Edit Profile
-                        </button>
-                        <button on:click={handleLogout} class="cursor-pointer px-4 py-2 border rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
-                            Logout
-                        </button>
+                        <div class="flex space-x-2">
+                            <button on:click={handleEditProfile} class="cursor-pointer px-4 py-2 border rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                                Edit Profile
+                            </button>
+                            <button on:click={handleLogout} class="cursor-pointer px-4 py-2 border rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">
+                                Logout
+                            </button>
+                        </div>
                     </div>
                     <div class="mt-4">
                         <p><strong>Email:</strong> {user.email}</p>
@@ -109,16 +115,19 @@
             {:else}
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {#each posts as post}
-                        <div class="relative group">
-                            {#if post.imageUrl}
-                                <img src={post.imageUrl} alt={post.title || 'User post'} class="w-full h-64 object-cover rounded-lg" />
-                            {:else}
-                                <div class="w-full h-64 bg-gray-200 rounded-lg"></div>
-                            {/if}
-                            <div class="absolute inset-0 bg-black bg-opacity-25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
-                                <span class="text-white text-lg font-bold">{post.title}</span>
-                            </div>
+                    <a 
+                        class="relative group cursor-pointer w-full h-64 rounded-lg overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        href={`/post/${post.id}`}
+                    >
+                        {#if post.imageUrl}
+                            <img src={post.imageUrl} alt={post.title || 'User post'} class="w-full h-full object-cover" />
+                        {:else}
+                            <div class="w-full h-full bg-gray-200"></div>
+                        {/if}
+                        <div class="absolute inset-0 bg-black bg-opacity-25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white text-lg font-bold">{post.title}</span>
                         </div>
+                    </a>
                     {/each}
                 </div>
             {/if}

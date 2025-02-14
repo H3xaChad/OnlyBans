@@ -42,7 +42,7 @@ public class PostController(
         var posts = await context.Posts
             .AsNoTracking()
             .Where(p => p.UserId == user.Id)
-            .Include(p => p.User)
+            .Include(p => p.LikedByUsers)
             .Select(p => new PostGetDto(p))
             .ToListAsync();
 
@@ -53,7 +53,7 @@ public class PostController(
     public async Task<ActionResult<PostGetDto>> GetPost(Guid id) {
         var post = await context.Posts
             .AsNoTracking()
-            .Include(p => p.User)
+            .Include(p => p.LikedByUsers)
             .Where(p => p.Id == id)
             .Select(p => new PostGetDto(p))
             .FirstOrDefaultAsync();
@@ -136,26 +136,6 @@ public class PostController(
         context.UserPostLikes.Remove(like);
         await context.SaveChangesAsync();
         return Ok(new { message = "Like removed successfully" });
-    }
-    
-    [Authorize]
-    [HttpPost("{postId:guid}/comment", Name = "createComment")]
-    public async Task<IActionResult> CreateComment(Guid postId, CommentCreateDto commentDto) {
-        var user = await userManager.GetUserAsync(User);
-        if (user == null)
-            return Unauthorized("Please log in to comment on a post");
-
-        var post = await context.Posts.FindAsync(postId);
-        if (post == null)
-            return NotFound(new { message = "Post not found" });
-
-        if (string.IsNullOrWhiteSpace(commentDto.Content))
-            return BadRequest(new { message = "Comment content cannot be empty" });
-
-        var comment = commentDto.ToComment(user.Id);
-        context.Comments.Add(comment);
-        await context.SaveChangesAsync();
-        return Ok(new { message = "Comment posted successfully" });
     }
     
     [HttpGet("{postId:guid}/comments", Name = "getComments")]
