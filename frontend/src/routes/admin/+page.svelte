@@ -1,6 +1,6 @@
 <script>
 	import Navbar from "$lib/components/Navbar.svelte";
-	import InfoPanel from "$lib/components/InfoPanel.svelte";
+	import InfoPanel from "$lib/components/admin/InfoPanel.svelte";
 	import TopBar from "$lib/components/TopBar.svelte";
 	import { writable } from "svelte/store";
 
